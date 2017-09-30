@@ -12,12 +12,32 @@ plugin.register = function(server, options, next) {
     method: "GET",
     path: "/transactions",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "storage.json"), "utf8", (err, data) => {
+      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (err, data) => {
         if (err) {
           console.log("Transactions READ ERROR");
           return reply();
         }
         return reply(JSON.parse(data));
+      });
+    }
+  });
+
+  server.route({
+    method: "GET",
+    path: "/get-negotiations",
+    handler: (request, reply) => {
+      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (err, data) => {
+        if (err) {
+          console.log("Transactions READ ERROR");
+          return reply();
+        }
+        let parsedData = JSON.parse(data);
+        let found = _.filter(parsedData, { status: "NEGOTIATION" });
+        if (!_.isEmpty(found)) {
+          return reply(found);
+        } else {
+          return reply();
+        }
       });
     }
   });
