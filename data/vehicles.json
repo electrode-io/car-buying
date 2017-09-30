@@ -1,0 +1,54 @@
+[
+  {
+    "vin_number": "123123",
+    "vehicle_type": "Sedan",
+    "vehicle_make": "Mercedes Benz",
+    "vehicle_model": "C300",
+    "vehicle_year": 2015,
+    "vehicle_color": "Blue",
+    "list_price": 30000,
+    "image_path": null,
+    "status": true,
+    "createdAt": "2017-09-11 22:08:42",
+    "updatedAt": "2017-09-11 22:08:42"
+  },
+  {
+    "vin_number": "123456",
+    "vehicle_type": "Sedan",
+    "vehicle_make": "Honda",
+    "vehicle_model": "Civic",
+    "vehicle_year": 2008,
+    "vehicle_color": "Blue",
+    "list_price": 10000,
+    "image_path": null,
+    "status": true,
+    "createdAt": "2017-08-31 19:03:22",
+    "updatedAt": "2017-09-11 22:09:19"
+  },
+  {
+    "vin_number": "1234567",
+    "vehicle_type": "Sedan",
+    "vehicle_make": "Honda",
+    "vehicle_model": "Civic",
+    "vehicle_year": 2008,
+    "vehicle_color": "Blue",
+    "list_price": 10000,
+    "image_path": null,
+    "status": null,
+    "createdAt": "2017-08-31 19:03:40",
+    "updatedAt": "2017-08-31 19:03:40"
+  },
+  {
+    "vin_number": "1234590",
+    "vehicle_type": "Sedan",
+    "vehicle_make": "Honda",
+    "vehicle_model": "Civic",
+    "vehicle_year": 2008,
+    "vehicle_color": "Blue",
+    "list_price": 10000,
+    "image_path": null,
+    "status": null,
+    "createdAt": "2017-09-01 19:40:52",
+    "updatedAt": "2017-09-01 19:40:52"
+  }
+]
