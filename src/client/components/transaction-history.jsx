@@ -15,7 +15,7 @@ function NegotiationFilter(props) {
   if (data.status == true) {
     //return <AcceptedNegotiation key={data.id} data={data} />;
   } else {
-    return <Negotiation key={data.id} data={data} />;
+    return <Negotiation key={data.id} data={data} parent="User" />;
   }
 }
 
@@ -38,7 +38,7 @@ class TransactionHistory extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/get-negotiations")
+    fetch("/transactions")
       .then(response => {
         if (response.status >= 400) {
           throw new Error("Bad response from server");

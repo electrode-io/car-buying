@@ -7,9 +7,11 @@ import Car from "./car";
 
 class Negotiation extends React.Component {
   constructor(props) {
+    console.log("PROPS:::", props);
     super(props);
     this.handleComments = this.handleComments.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAccept = this.handleAccept.bind(this);
     this.state = {
       replyText: ""
     };
@@ -31,12 +33,7 @@ class Negotiation extends React.Component {
       },
       body: JSON.stringify({
         id: this.props.data.id,
-        comments:
-          this.props.data.comments +
-          "\n" +
-          this.props.data.dealer_name +
-          ": " +
-          this.state.replyText
+        comments: this.props.data.comments + "\n" + this.props.parent + ": " + this.state.replyText
       })
     })
       .then(response => {
@@ -44,6 +41,7 @@ class Negotiation extends React.Component {
           throw new Error("Bad response from server");
         }
         response.json().then(negotiation => {
+          console.log("NEgotiation::", negotiation);
           this.props.data.comments = negotiation.comments;
           this.setState({
             replyText: ""
@@ -68,7 +66,8 @@ class Negotiation extends React.Component {
       body: JSON.stringify({
         id: this.props.data.id,
         actual_price: this.props.data.actual_price,
-        status: true
+        status: "ACCEPTED",
+        comments: this.props.data.comments + "\n" + this.props.parent + ": " + "ACCEPTED OFFER"
       })
     })
       .then(response => {
@@ -101,14 +100,15 @@ class Negotiation extends React.Component {
             CustomerID: {this.props.data.customer_id}
             <br />
             Comments: <br />
-            {this.props.data.comments.split("\n").map((item, key) => {
-              return (
-                <span key={key}>
-                  {item}
-                  <br />
-                </span>
-              );
-            })}
+            {this.props.data.comments &&
+              this.props.data.comments.split("\n").map((item, key) => {
+                return (
+                  <span key={key}>
+                    {item}
+                    <br />
+                  </span>
+                );
+              })}
             <br />
           </div>
 
@@ -139,7 +139,8 @@ class Negotiation extends React.Component {
 }
 
 Negotiation.propTypes = {
-  data: React.PropTypes.object
+  data: React.PropTypes.object,
+  parent: React.PropTypes.string
 };
 
 export default Negotiation;

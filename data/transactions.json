@@ -1,1 +1,26 @@
-[{"id":"1","user_name":"TestUser","actual_price":"$25,915","vin_number":"1234567890","user_id":"1","loan_status":"DENIED","loan_apr":0},{"id":"2","user_name":"user2","actual_price":"$26,000","vin_number":"123123","user_id":"2","loan_status":"APPROVED","loan_apr":"1.99","loan_term":"60"},{"id":"3","user_name":"user3","actual_price":"$20,000","vin_number":"123456","user_id":"3","loan_status":"APPROVED","loan_apr":"1.99","loan_term":"60","insurance_status":"PENDING"},{"id":"4","user_name":"user4","actual_price":"$19,000","vin_number":"1234123","user_id":"4","loan_status":"APPROVED","loan_apr":"1.99","loan_term":"60","insurance_status":"APPROVED","insurance_amount":"50000"},{"customer_id":1,"vin_number":"123123","actual_price":"25000","status":"NEGOTIATION","comments":"Customer : Will buy for 25k","id":1506764425738},{"customer_id":1,"vin_number":"123123","actual_price":"25000","status":"NEGOTIATION","comments":"Customer : hello","id":1506764658783},{"customer_id":1,"vin_number":"123123","actual_price":"2700","status":"NEGOTIATION","comments":"Customer : 27k","id":1506765113212},{"customer_id":1,"vin_number":"123123","actual_price":"20000","status":"NEGOTIATION","comments":"Customer : 20k","id":1506765290248}]
+[
+  {
+    "customer_id": 1,
+    "vin_number": "123123",
+    "actual_price": "2700",
+    "status": "ACCEPTED",
+    "id": 1506765113212,
+    "comments": "Customer : Will buy for 9k\nDealer: ACCEPTED OFFER"
+  },
+  {
+    "customer_id": 1,
+    "vin_number": "123123",
+    "actual_price": "20000",
+    "status": "ACCEPTED",
+    "comments": "Customer : 20k",
+    "id": 1506765290248
+  },
+  {
+    "customer_id": 1,
+    "vin_number": "1234590",
+    "actual_price": "9000",
+    "status": "NEGOTIATION",
+    "comments": "Customer : Will buy for 9k",
+    "id": 1506800738120
+  }
+]

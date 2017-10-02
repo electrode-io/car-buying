@@ -82,12 +82,8 @@ plugin.register = function(server, options, next) {
           return reply("Transactions UPDATE ERROR");
         }
         let parsedData = JSON.parse(data);
-        let found = _.find(parsedData.transactions, { id: request.payload.id });
+        let found = _.find(parsedData, { id: request.payload.id });
         if (!_.isEmpty(found)) {
-          found.loan_status = request.payload.loan_status;
-          found.loan_apr = request.payload.loan_apr;
-          found.loan_term = request.payload.loan_term;
-
           fs.writeFile(
             path.join(process.cwd(), "data/transactions.json"),
             JSON.stringify(parsedData),
@@ -106,6 +102,48 @@ plugin.register = function(server, options, next) {
       });
     }
   });
+
+  server.route({
+    method: "PUT",
+    path: "/update-negotiation",
+    handler: (request, reply) => {
+      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (err, data) => {
+        if (err) {
+          console.log("Transactions READ ERROR");
+          return reply("Transactions UPDATE ERROR");
+        }
+        let parsedData = JSON.parse(data);
+        let found = _.find(parsedData, {
+          id: request.payload.id,
+          status: "NEGOTIATION"
+        });
+
+        if (!_.isEmpty(found)) {
+          if (request.payload.comments) {
+            found.comments = request.payload.comments;
+          }
+          if (request.payload.status) {
+            found.status = request.payload.status;
+          }
+          fs.writeFile(
+            path.join(process.cwd(), "data/transactions.json"),
+            JSON.stringify(parsedData),
+            "utf-8",
+            err => {
+              if (err) {
+                reply("Write Error").code(HTTP_ISE);
+              } else {
+                reply(found).code(HTTP_CREATED);
+              }
+            }
+          );
+        } else {
+          return reply("error").code(HTTP_CREATED);
+        }
+      });
+    }
+  });
+
   next();
 };
 
