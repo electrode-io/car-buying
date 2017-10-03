@@ -13,29 +13,11 @@ const Promise = require("bluebird");
 const readFileAsync = Promise.promisify(fs.readFile);
 
 function storeInitializer(req, transactions, vehicles) {
-  let initialState = {};
-  if (req.path === "/history") {
-    initialState = {
-      transactions: transactions
-    };
-  } else if (req.path === "/dealer-transactions") {
-    initialState = {
-      transactions: transactions
-    };
-  } else if (req.path === "/user") {
-    initialState = {
-      cars: vehicles
-    };
-  } else if (req.path === "/dealer") {
-    initialState = {
-      cars: vehicles
-    };
-  } else {
-    initialState = {
-      checkBox: { checked: false },
-      number: { value: 999 }
-    };
-  }
+  let initialState = {
+    transactions: transactions,
+    cars: vehicles,
+    visibilityFilter: "SHOW_ALL"
+  };
   return createStore(rootReducer, initialState);
 }
 function createReduxStore(req, match) {

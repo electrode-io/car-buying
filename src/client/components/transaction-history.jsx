@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import skeleton from "../styles/skeleton.css";
 import custom from "../styles/custom.css";
 import user from "../styles/user.css";
@@ -77,4 +78,11 @@ class TransactionHistory extends React.Component {
 
 TransactionHistory.propTypes = {};
 
-export default TransactionHistory;
+const mapStateToProps = state => {
+  console.log("STTATE:::", state);
+  return {
+    transactions: state.transactions
+  };
+};
+
+export default connect(mapStateToProps)(TransactionHistory);

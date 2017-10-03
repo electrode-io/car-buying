@@ -1,17 +1,9 @@
-export const toggleCheck = () => {
-  return {
-    type: "TOGGLE_CHECK"
-  };
+export const visibilityFilters = {
+  SHOW_ALL: "SHOW_ALL",
+  SHOW_NEGOTIATIONS: "NEGOTIATIONS",
+  SHOW_ACCEPTED: "ACCEPTED"
 };
 
-export const incNumber = () => {
-  return {
-    type: "INC_NUMBER"
-  };
-};
-
-export const decNumber = () => {
-  return {
-    type: "DEC_NUMBER"
-  };
+export const setVisibilityFilter = filter => {
+  return { type: "SET_VISIBILITY_FILTER", filter };
 };

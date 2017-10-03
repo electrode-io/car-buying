@@ -7,7 +7,6 @@ import Car from "./car";
 
 class Negotiation extends React.Component {
   constructor(props) {
-    console.log("PROPS:::", props);
     super(props);
     this.handleComments = this.handleComments.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,7 +40,6 @@ class Negotiation extends React.Component {
           throw new Error("Bad response from server");
         }
         response.json().then(negotiation => {
-          console.log("NEgotiation::", negotiation);
           this.props.data.comments = negotiation.comments;
           this.setState({
             replyText: ""
@@ -98,6 +96,8 @@ class Negotiation extends React.Component {
             Price: {this.props.data.actual_price}
             <br />
             CustomerID: {this.props.data.customer_id}
+            <br />
+            Status: {this.props.data.status}
             <br />
             Comments: <br />
             {this.props.data.comments &&

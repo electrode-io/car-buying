@@ -1,5 +1,6 @@
 import React from "react";
 import { browserHistory } from "react-router";
+import { connect } from "react-redux";
 
 import Car from "./car";
 import Banner from "./banner";
@@ -73,4 +74,10 @@ class UserView extends React.Component {
   }
 }
 
-export default UserView;
+const mapStateToProps = state => {
+  return {
+    cars: state.cars
+  };
+};
+
+export default connect(mapStateToProps)(UserView);

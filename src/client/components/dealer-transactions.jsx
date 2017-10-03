@@ -1,9 +1,11 @@
 import React from "react";
 import { browserHistory } from "react-router";
+import { connect } from "react-redux";
 
 import Car from "./car";
 import Negotiation from "./negotiation-box";
 import Banner from "./banner";
+import Filter from "./filter";
 
 import "../styles/skeleton.css";
 import "../styles/custom.css";
@@ -16,34 +18,6 @@ import mazdaRedImg from "../images/mazda-red.png";
 class DealerTransactions extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      negotiations: [
-        {
-          id: 1,
-          actual_price: "$25,915",
-          vin_number: "1234567890",
-          comments: "Offerring 22000 as per KBB",
-          customer_id: "3",
-          dealer_name: "Walmart Carmart",
-          status: "true"
-        }
-      ]
-    };
-  }
-
-  componentDidMount() {
-    fetch("/get-negotiations")
-      .then(response => {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        response.json().then(negotiations => {
-          this.setState({ negotiations });
-        });
-      })
-      .catch(err => {
-        console.log("Error Fetching Transactions", err);
-      });
   }
 
   render() {
@@ -72,7 +46,16 @@ class DealerTransactions extends React.Component {
 
           {/* Transactions List Section */}
           <div className={`${sectionStyles["cars-list"]} ${sectionStyles["flex-item"]}`}>
-            {this.state.negotiations.map(v => <Negotiation key={v.id} data={v} parent="Dealer" />)}
+            {this.props.transactions.map(v => <Negotiation key={v.id} data={v} parent="Dealer" />)}
+          </div>
+          <div className={`${dealerStyles.tabs} ${sectionStyles["flex-item"]}`}>
+            <p>
+              Show: <Filter filter="SHOW_ALL">All</Filter>
+              {", "}
+              <Filter filter="NEGOTIATION">Negotiations</Filter>
+              {", "}
+              <Filter filter="ACCEPTED">Accepted</Filter>
+            </p>
           </div>
         </div>
       </div>
@@ -80,4 +63,23 @@ class DealerTransactions extends React.Component {
   }
 }
 
-export default DealerTransactions;
+const getVisibleTransactions = (transactions, filter) => {
+  switch (filter) {
+    case "SHOW_ALL":
+      return transactions;
+    case "ACCEPTED":
+      return transactions.filter(t => t.status == "ACCEPTED");
+    case "NEGOTIATION":
+      return transactions.filter(t => t.status == "NEGOTIATION");
+    default:
+      return transactions;
+  }
+};
+
+const mapStateToProps = state => {
+  return {
+    transactions: getVisibleTransactions(state.transactions, state.visibilityFilter)
+  };
+};
+
+export default connect(mapStateToProps)(DealerTransactions);

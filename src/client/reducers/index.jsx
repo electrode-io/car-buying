@@ -1,27 +1,18 @@
 import { combineReducers } from "redux";
+import { setVisibilityFilter, visibilityFilters } from "../actions";
 
-const checkBox = (store, action) => {
-  if (action.type === "TOGGLE_CHECK") {
-    return {
-      checked: !store.checked
-    };
-  }
-
-  return store || { checked: false };
+const initialState = {
+  visibilityFilter: visibilityFilters.SHOW_ALL,
+  transactions: []
 };
 
-const number = (store, action) => {
-  if (action.type === "INC_NUMBER") {
-    return {
-      value: store.value + 1
-    };
-  } else if (action.type === "DEC_NUMBER") {
-    return {
-      value: store.value - 1
-    };
+const visibilityFilter = (state = "SHOW_ALL", action) => {
+  switch (action.type) {
+    case "SET_VISIBILITY_FILTER":
+      return action.filter;
+    default:
+      return state;
   }
-
-  return store || { value: 0 };
 };
 
 let cars = (store = {}, action) => {
@@ -33,8 +24,7 @@ let transactions = (store = {}, action) => {
 };
 
 export default combineReducers({
-  checkBox,
-  number,
   cars,
-  transactions
+  transactions,
+  visibilityFilter
 });
