@@ -86,7 +86,7 @@
     Register this plugin in `config/default.js` under `plugins`:
     ```js
     "./server/plugins/vehicles": {
-      module: "./{{env.APP_SRC_DIR}}server/plugins/vehicles"
+      "module": "./{{env.APP_SRC_DIR}}server/plugins/vehicles"
     }
     ```
 
@@ -139,3 +139,97 @@
       return createStore(rootReducer, initialState);
     }
     ```
+
+- Add the corresponding Reducer and Actions:
+  In order to correctly map the transactions, car inventory and the visibilityFilter, we need to define them in the  actions and reducer.
+
+  The `src/clients/actions/index.js` file can be updated with :
+
+  ```js
+    export const visibilityFilters = {
+      SHOW_ALL: "SHOW_ALL",
+      SHOW_NEGOTIATIONS: "NEGOTIATIONS",
+      SHOW_ACCEPTED: "ACCEPTED"
+    };
+
+    export const setVisibilityFilter = filter => {
+      return { type: "SET_VISIBILITY_FILTER", filter };
+    };
+  ```
+
+  And the reducer `src/client/reducers/index.js` should be updated : 
+
+  ```js
+    import { combineReducers } from "redux";
+    import { setVisibilityFilter, visibilityFilters } from "../actions";
+
+    const initialState = {
+      visibilityFilter: visibilityFilters.SHOW_ALL,
+      transactions: []
+    };
+
+    const visibilityFilter = (state = "SHOW_ALL", action) => {
+      switch (action.type) {
+        case "SET_VISIBILITY_FILTER":
+          return action.filter;
+        default:
+          return state;
+      }
+    };
+
+    let cars = (store = {}, action) => {
+      return store;
+    };
+
+    let transactions = (store = {}, action) => {
+      return store;
+    };
+
+    export default combineReducers({
+      cars,
+      transactions,
+      visibilityFilter
+    });
+  ```
+  
+ - Now add the transactions plugin, which contains the api for modifying transactions.
+   Add a file named `transactions.js` under `src/server/plugins` with the content from [here](./src/server/plugins/transactions.js).
+   You will have api's to Get, create and update transactions. There is also an API that filters and updates transactions of a specific type.
+   Also add this plugin to the `default.js` file.
+
+   ```js
+    "./server/plugins/transactions": {
+      "module": "./{{env.APP_SRC_DIR}}server/plugins/transactions"
+    }
+    ```
+
+ - We can now add views that display our transactions loaded from the file.
+   Create a component file called `transaction-history.jsx`. This is the view for the user to update the transactions.
+   Create the file under `src/client/components` with content from [here](./src/client/components/transaction-history.jsx).
+
+- Also add a file, `filter.jsx` under `src/client/components/` with [content](./src/client/components/filter.jsx) .We use this for diplaying Links that filter transactions based on their status.
+
+- We also add a component called `negotiation-box.jsx` which provides the UI for updating transactions and communicating between the user and the dealer.
+  Add this file under `src/client/components/` with content from [here](./src/client/components/negotiation-box.jsx).
+
+- Now link the component via routes to the other pages. Add the following to the `routes.jsx` file.
+
+  ```js
+    import TransactionHistory from "./components/transaction-history";
+    ..
+    ..
+    <Route path="/history" component={TransactionHistory} />
+  ```
+
+- Similarly on the dealer flow, we will add a view component called `dealer-transactions.jsx` under `src/client/components` with [content](./src/client/components/dealer-transactions.jsx).
+
+- Also add the route to `routes.jsx` for the new component.
+  
+  ```js
+    import DealerTransactions from "./components/dealer-transactions";
+    ..
+    ..
+    <Route path="/dealer-transactions" component={DealerTransactions} />
+  ```
+
+ -  Your app is not complete and you should be able to update and create transactions and negotiations.
