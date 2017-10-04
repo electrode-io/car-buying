@@ -1,5 +1,6 @@
 import React from "react";
 import { browserHistory } from "react-router";
+import PropTypes from "prop-types";
 
 import "../styles/skeleton.css";
 import "../styles/custom.css";
@@ -94,14 +95,14 @@ class Car extends React.Component {
 }
 
 Car.propTypes = {
-  img: React.PropTypes.string,
-  vehicle_make: React.PropTypes.string,
-  vehicle_model: React.PropTypes.string,
-  vehicle_year: React.PropTypes.string,
-  vehicle_color: React.PropTypes.string,
-  actual_price: React.PropTypes.string,
-  list_price: React.PropTypes.string,
-  vin_number: React.PropTypes.string
+  img: PropTypes.string,
+  vehicle_make: PropTypes.string,
+  vehicle_model: PropTypes.string,
+  vehicle_year: PropTypes.string,
+  vehicle_color: PropTypes.string,
+  actual_price: PropTypes.string,
+  list_price: PropTypes.string,
+  vin_number: PropTypes.string
 };
 
 export default Car;

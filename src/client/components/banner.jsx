@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import skeleton from "../styles/skeleton.css";
 import custom from "../styles/custom.css";
 import user from "../styles/user.css";
@@ -26,8 +27,8 @@ class Banner extends React.Component {
 }
 
 Banner.propTypes = {
-  className: React.PropTypes.string,
-  title: React.PropTypes.string
+  className: PropTypes.string,
+  title: PropTypes.string
 };
 
 export default Banner;

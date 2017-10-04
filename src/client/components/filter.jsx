@@ -28,7 +28,6 @@ Link.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("STATE filter::", state);
   return {
     active: ownProps.filter === state.visibilityFilter
   };

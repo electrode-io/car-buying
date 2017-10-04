@@ -1,5 +1,6 @@
 import React from "react";
 import { browserHistory } from "react-router";
+import { connect } from "react-redux";
 
 import Car from "./car";
 import Banner from "./banner";
@@ -16,36 +17,6 @@ import "../styles/banner.css";
 class Dealer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cars: [
-        {
-          img: mazdaRedImg,
-          vehicle_make: "Mazda",
-          vehicle_model: "3",
-          vehicle_year: "2014",
-          vehicle_color: "red",
-          actual_price: "$25,915",
-          list_price: "$30,000",
-          vin_number: "1234567890",
-          vehicle_type: "Sedan"
-        }
-      ]
-    };
-  }
-
-  componentDidMount() {
-    fetch("/vehicles")
-      .then(response => {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        response.json().then(cars => {
-          this.setState({ cars });
-        });
-      })
-      .catch(err => {
-        throw new Error("Error Fetching Vehicles", err);
-      });
   }
 
   render() {
@@ -75,7 +46,7 @@ class Dealer extends React.Component {
 
           {/* Cars List Section */}
           <div className={`${sectionStyles["cars-list"]} ${sectionStyles["flex-item"]}`}>
-            {this.state.cars.map(v => <Car key={v.vin_number} data={v} />)}
+            {this.props.cars.map(v => <Car key={v.vin_number} data={v} />)}
           </div>
         </div>
       </div>
@@ -83,4 +54,10 @@ class Dealer extends React.Component {
   }
 }
 
-export default Dealer;
+const mapStateToProps = state => {
+  return {
+    cars: state.cars
+  };
+};
+
+export default connect(mapStateToProps)(Dealer);

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import skeleton from "../styles/skeleton.css";
 import custom from "../styles/custom.css";
@@ -9,48 +10,11 @@ import Negotiation from "./negotiation-box";
 import Banner from "./banner";
 import { browserHistory } from "react-router";
 import dealerStyles from "../styles/dealer.css";
-//import AcceptedNegotiation from "./accepted-negotiation";
-
-function NegotiationFilter(props) {
-  let data = props && props.data;
-  if (data.status == true) {
-    //return <AcceptedNegotiation key={data.id} data={data} />;
-  } else {
-    return <Negotiation key={data.id} data={data} parent="User" />;
-  }
-}
+import Filter from "./filter";
 
 class TransactionHistory extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      negotiations: [
-        {
-          id: 1,
-          actual_price: "$25,915",
-          vin_number: "1234567890",
-          comments: "Offerring 22000 as per KBB",
-          customer_id: "3",
-          dealer_name: "Walmart Carmart",
-          status: "true"
-        }
-      ]
-    };
-  }
-
-  componentDidMount() {
-    fetch("/transactions")
-      .then(response => {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        response.json().then(negotiations => {
-          this.setState({ negotiations });
-        });
-      })
-      .catch(err => {
-        console.log("Error Fetching Transactions", err);
-      });
   }
 
   render() {
@@ -68,7 +32,16 @@ class TransactionHistory extends React.Component {
         <div className={`${user.userView} ${sectionStyles["flex-container"]}`}>
           {/* Transactions List Section */}
           <div className={`${sectionStyles["cars-list"]} ${sectionStyles["flex-item"]}`}>
-            {this.state.negotiations.map(v => <NegotiationFilter key={v.id} data={v} />)}
+            {this.props.transactions.map(v => <Negotiation key={v.id} data={v} parent="User" />)}
+          </div>
+          <div className={`${dealerStyles.tabs} ${sectionStyles["flex-item"]}`}>
+            <p>
+              Show: <Filter filter="SHOW_ALL">All</Filter>
+              {", "}
+              <Filter filter="NEGOTIATION">Negotiations</Filter>
+              {", "}
+              <Filter filter="ACCEPTED">Accepted</Filter>
+            </p>
           </div>
         </div>
       </div>
@@ -76,12 +49,23 @@ class TransactionHistory extends React.Component {
   }
 }
 
+const getVisibleTransactions = (transactions, filter) => {
+  switch (filter) {
+    case "SHOW_ALL":
+      return transactions;
+    case "ACCEPTED":
+      return transactions.filter(t => t.status == "ACCEPTED");
+    case "NEGOTIATION":
+      return transactions.filter(t => t.status == "NEGOTIATION");
+    default:
+      return transactions;
+  }
+};
 TransactionHistory.propTypes = {};
 
 const mapStateToProps = state => {
-  console.log("STTATE:::", state);
   return {
-    transactions: state.transactions
+    transactions: getVisibleTransactions(state.transactions, state.visibilityFilter)
   };
 };
 

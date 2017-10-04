@@ -1,9 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import skeleton from "../styles/skeleton.css";
 import custom from "../styles/custom.css";
 import user from "../styles/user.css";
 import negotiationStyles from "../styles/negotiation.css";
 import Car from "./car";
+import { connect } from "react-redux";
 
 class Negotiation extends React.Component {
   constructor(props) {
@@ -124,7 +126,11 @@ class Negotiation extends React.Component {
             />
             <br />
 
-            <button className={negotiationStyles.button} onClick={this.handleSubmit}>
+            <button
+              className={negotiationStyles.button}
+              onClick={this.handleSubmit}
+              disabled={this.props.data.status != "NEGOTIATION"}
+            >
               Reply
             </button>
             <button className={negotiationStyles.button} onClick={this.handleAccept}>
@@ -139,8 +145,8 @@ class Negotiation extends React.Component {
 }
 
 Negotiation.propTypes = {
-  data: React.PropTypes.object,
-  parent: React.PropTypes.string
+  data: PropTypes.object,
+  parent: PropTypes.string
 };
 
 export default Negotiation;
