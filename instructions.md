@@ -232,4 +232,4 @@
     <Route path="/dealer-transactions" component={DealerTransactions} />
   ```
 
- -  Your app is not complete and you should be able to update and create transactions and negotiations.
+ -  Your app is now complete and you should be able to update and create transactions and negotiations.
