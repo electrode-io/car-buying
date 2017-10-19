@@ -13,9 +13,18 @@
   text-align: center;
 }
 
+.car .left-align-wrapper {
+  text-align: left;
+  display: inline-block;
+  width: 100%;
+  font-size: 1.2em;
+  padding-left: 10%;
+}
+
 .car .car-img {
-  max-width: 300px;
+  width: 33%;
   margin: 0 auto;
+  max-width: 450px;
 }
 
 .car .car-title {
@@ -24,7 +33,7 @@
 }
 
 .car .car-price .car-price-sale {
-  color: #77a1d3;
+  color: #dd5e89;
   font-weight: 800;
   font-size: 1.6em;
 }
@@ -32,5 +41,5 @@
 .car .car-price button {
   border: none;
   color: white;
-  background-image: linear-gradient(to right, #818387 0%, #d4d6db 51%, #818387 100%);
+  background-color: #818387;
 }

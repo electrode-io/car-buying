@@ -4,28 +4,22 @@
 }
 
 .dealerView .tabs {
-  display: flex;
   margin: 0;
   width: 100%;
+}
+
+.dealerView .tabs .filter {
+  text-align: center;
+  font-size: 1.3em;
 }
 
 .dealerView .tabs button {
   padding: 0;
   width: 15em;
-  display: inline-block;
-  margin: 0 auto;
+  float: right;
+  margin: 0 2%;
 }
 
 .dealerView .tabs .cars-list img {
   width: 33%;
-}
-
-.dealerView .tabs button.active {
-  background-color: #818387;
-  border: none;
-  color: white;
-}
-
-.dealerView .tabs button.active:hover {
-  cursor: default;
 }

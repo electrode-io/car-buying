@@ -6,6 +6,7 @@ import user from "../styles/user.css";
 import negotiationStyles from "../styles/negotiation.css";
 import Car from "./car";
 import { connect } from "react-redux";
+import * as FontAwesome from "react-icons/lib/fa";
 
 class Negotiation extends React.Component {
   constructor(props) {
@@ -34,7 +35,12 @@ class Negotiation extends React.Component {
       },
       body: JSON.stringify({
         id: this.props.data.id,
-        comments: this.props.data.comments + "\n" + this.props.parent + ": " + this.state.replyText
+        comments:
+          this.props.data.comments +
+          "\n" +
+          this.props.parent +
+          ": " +
+          this.state.replyText
       })
     })
       .then(response => {
@@ -67,7 +73,12 @@ class Negotiation extends React.Component {
         id: this.props.data.id,
         actual_price: this.props.data.actual_price,
         status: "ACCEPTED",
-        comments: this.props.data.comments + "\n" + this.props.parent + ": " + "ACCEPTED OFFER"
+        comments:
+          this.props.data.comments +
+          "\n" +
+          this.props.parent +
+          ": " +
+          "ACCEPTED OFFER"
       })
     })
       .then(response => {
@@ -89,53 +100,89 @@ class Negotiation extends React.Component {
   }
 
   render() {
+    function AcceptedBlock() {
+      return (
+        <div className={negotiationStyles["expectation"]}>
+          <FontAwesome.FaCheckCircle
+            className={negotiationStyles["acceptedIcon"]}
+          />
+          Accepted
+        </div>
+      );
+    }
+
+    function ReplyBlock(props) {
+      props = props.replyData;
+      return (
+        <div className={negotiationStyles["expectation"]}>
+          <textarea
+            value={props.state.replyText}
+            onChange={props.handleComments}
+            rows="4"
+            cols="25"
+            placeholder="Message to dealer here..."
+          />
+          <br />
+
+          <button
+            className={negotiationStyles.button}
+            onClick={props.handleSubmit}
+            disabled={props.props.data.status != "NEGOTIATION"}
+          >
+            Reply
+          </button>
+          <button
+            className={negotiationStyles.button}
+            onClick={props.handleAccept}
+          >
+            Accept Offer
+          </button>
+        </div>
+      );
+    }
+
+    function UserTransReplyBlock(props) {
+      props = props.transData;
+      const isAccepted = props.props.data.status === "ACCEPTED";
+
+      if (isAccepted) {
+        return <AcceptedBlock />;
+      } else {
+        return <ReplyBlock replyData={props} />;
+      }
+    }
+
+    function VehicleInfoBlock(props) {
+      return (
+        <div className={negotiationStyles["vehicle-info-text-content"]}>
+          VIN: {props.infoData.data.vin_number}
+          <br />
+          Price: {props.infoData.data.actual_price}
+          <br />
+          CustomerID: {props.infoData.data.customer_id}
+          <br />
+          Status: {props.infoData.data.status}
+          <br />
+          Comments: <br />
+          {props.infoData.data.comments &&
+            props.infoData.data.comments.split("\n").map((item, key) => {
+              return (
+                <span key={key}>
+                  {item}
+                  <br />
+                </span>
+              );
+            })}
+        </div>
+      );
+    }
+
     return (
       <div className={negotiationStyles.negotiation}>
         <div className={negotiationStyles["vehicle-info"]}>
           <div className={negotiationStyles["vehicle-info-text"]}>
-            VIN: {this.props.data.vin_number}
-            <br />
-            Price: {this.props.data.actual_price}
-            <br />
-            CustomerID: {this.props.data.customer_id}
-            <br />
-            Status: {this.props.data.status}
-            <br />
-            Comments: <br />
-            {this.props.data.comments &&
-              this.props.data.comments.split("\n").map((item, key) => {
-                return (
-                  <span key={key}>
-                    {item}
-                    <br />
-                  </span>
-                );
-              })}
-            <br />
-          </div>
-
-          <div className={negotiationStyles["expectation"]}>
-            <span className={negotiationStyles["subtitle"]}>
-              Reply <br />
-            </span>
-            <textarea
-              value={this.state.replyText}
-              onChange={this.handleComments}
-              rows="4"
-              cols="50"
-            />
-            <br />
-
-            <button
-              className={negotiationStyles.button}
-              onClick={this.handleSubmit}
-              disabled={this.props.data.status != "NEGOTIATION"}
-            >
-              Reply
-            </button>
-            <button className={negotiationStyles.button} onClick={this.handleAccept}>
-              Accept Offer
-            </button>
+            <VehicleInfoBlock infoData={this.props} />
+            <UserTransReplyBlock transData={this} />
           </div>
         </div>
         <hr />

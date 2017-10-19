@@ -2,18 +2,26 @@
   text-align: center;
   margin: 0 auto;
   width: 100%;
+  display: inline-block;
 }
 
 .negotiation .expectation {
   width: 50%;
   margin: 0 auto;
-  text-align: left;
+  text-align: center;
   display: inline-block;
+  vertical-align: bottom;
 }
 
-.negotiation .expectation .subtitle {
-  font-weight: 800;
-  font-size: 1.1em;
+.negotiation .expectation textarea {
+  resize: none;
+  min-height: 100px;
+}
+
+.negotiation .expectation .acceptedIcon {
+  color: green;
+  font-size: 3em;
+  margin-right: 10px;
 }
 
 .negotiation .vehicle-info {
@@ -25,6 +33,13 @@
   display: inline-block;
   vertical-align: top;
   text-align: center;
+  font-size: 1.3em;
+}
+
+.negotiation .vehicle-info .vehicle-info-text .vehicle-info-text-content {
+  text-align: left;
+  display: inline-block;
+  width: 50%;
 }
 
 .negotiation .expectation table tr {
@@ -38,5 +53,5 @@
 
 .negotiation button {
   color: white;
-  background-image: linear-gradient(to right, #818387 0%, #d4d6db 51%, #818387 100%);
+  background-color: #818387;
 }
