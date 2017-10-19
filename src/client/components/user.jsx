@@ -10,9 +10,6 @@ import sectionStyles from "../styles/section.css";
 import "../styles/skeleton.css";
 import "../styles/custom.css";
 
-import mazdaImg from "../images/mazda.png";
-import mazdaRedImg from "../images/mazda-red.png";
-
 /*
  * Demostrates a simple pure functional component
  */
@@ -26,16 +23,24 @@ class UserView extends React.Component {
       <div>
         <Banner className={"user-banner"} title={"User View"} />
         <button
+          className={`${userStyles.history}`}
           onClick={() => {
             browserHistory.push("/history");
           }}
-          className={`${userStyles.history}`}
         >
           History
         </button>
-        <div className={`${userStyles.userView} ${sectionStyles["flex-container"]}`}>
+        <div
+          className={`${userStyles.userView} ${sectionStyles[
+            "flex-container"
+          ]}`}
+        >
           {/* Cars List Section */}
-          <div className={`${sectionStyles["cars-list"]} ${sectionStyles["flex-item"]}`}>
+          <div
+            className={`${sectionStyles["cars-list"]} ${sectionStyles[
+              "flex-item"
+            ]}`}
+          >
             {this.props.cars.map(v => <Car key={v.vin_number} data={v} />)}
           </div>
         </div>

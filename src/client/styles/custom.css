@@ -82,27 +82,6 @@ img {
   background-image: linear-gradient(to right, #79cbca 0%, #77a1d3 51%, #79cbca 100%);
 }
 
-.roleButton.banker {
-  background-image: linear-gradient(to right, #f4c542 0%, #efeb73 51%, #f4c542 100%);
-}
-.roleButton.banker:hover {
-  background-image: linear-gradient(to right, #efeb73 0%, #f4c542 51%, #efeb73 100%);
-}
-
-.roleButton.broker {
-  background-image: linear-gradient(to right, #00f995 0%, #b2ffe0 51%, #00f995 100%);
-}
-.roleButton.broker:hover {
-  background-image: linear-gradient(to right, #b2ffe0 0%, #00f995 51%, #b2ffe0 100%);
-}
-
-.roleButton.dmv {
-  background-image: linear-gradient(to right, #4259f4 0%, #95a2f9 51%, #4259f4 100%);
-}
-.roleButton.dmv:hover {
-  background-image: linear-gradient(to right, #95a2f9 0%, #4259f4 51%, #95a2f9 100%);
-}
-
 .demoAppContainer h2 {
   margin: 50px 0;
   text-align: center;
