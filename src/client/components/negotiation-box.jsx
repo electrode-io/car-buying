@@ -8,7 +8,7 @@ import Car from "./car";
 import { connect } from "react-redux";
 import * as FontAwesome from "react-icons/lib/fa";
 
-class Negotiation extends React.Component {
+class ReplyBlock extends React.Component {
   constructor(props) {
     super(props);
     this.handleComments = this.handleComments.bind(this);
@@ -23,6 +23,7 @@ class Negotiation extends React.Component {
     this.setState({
       replyText: event.target.value
     });
+    event.preventDefault();
   }
 
   handleSubmit(event) {
@@ -35,12 +36,7 @@ class Negotiation extends React.Component {
       },
       body: JSON.stringify({
         id: this.props.data.id,
-        comments:
-          this.props.data.comments +
-          "\n" +
-          this.props.parent +
-          ": " +
-          this.state.replyText
+        comments: this.props.data.comments + "\n" + this.props.parent + ": " + this.state.replyText
       })
     })
       .then(response => {
@@ -73,12 +69,7 @@ class Negotiation extends React.Component {
         id: this.props.data.id,
         actual_price: this.props.data.actual_price,
         status: "ACCEPTED",
-        comments:
-          this.props.data.comments +
-          "\n" +
-          this.props.parent +
-          ": " +
-          "ACCEPTED OFFER"
+        comments: this.props.data.comments + "\n" + this.props.parent + ": " + "ACCEPTED OFFER"
       })
     })
       .then(response => {
@@ -100,89 +91,106 @@ class Negotiation extends React.Component {
   }
 
   render() {
-    function AcceptedBlock() {
-      return (
-        <div className={negotiationStyles["expectation"]}>
-          <FontAwesome.FaCheckCircle
-            className={negotiationStyles["acceptedIcon"]}
-          />
-          Accepted
-        </div>
-      );
+    return (
+      <div className={negotiationStyles["expectation"]}>
+        <textarea
+          value={this.state.replyText}
+          onChange={this.handleComments}
+          rows="4"
+          cols="25"
+          placeholder="Your reply here..."
+        />
+        <br />
+
+        <button
+          className={negotiationStyles.button}
+          onClick={this.handleSubmit}
+          disabled={this.props.data.status != "NEGOTIATION"}
+        >
+          Reply
+        </button>
+        <button className={negotiationStyles.button} onClick={this.handleAccept}>
+          Accept Offer
+        </button>
+      </div>
+    );
+  }
+}
+
+class AcceptedBlock extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className={negotiationStyles["expectation"]}>
+        <FontAwesome.FaCheckCircle className={negotiationStyles["acceptedIcon"]} />
+        Accepted
+      </div>
+    );
+  }
+}
+
+class VehicleInfoBlock extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className={negotiationStyles["vehicle-info-text-content"]}>
+        VIN: {this.props.infoData.vin_number}
+        <br />
+        Price: {this.props.infoData.actual_price}
+        <br />
+        CustomerID: {this.props.infoData.customer_id}
+        <br />
+        Status: {this.props.infoData.status}
+        <br />
+        Comments: <br />
+        {this.props.infoData.comments &&
+          this.props.infoData.comments.split("\n").map((item, key) => {
+            return (
+              <span key={key}>
+                {item}
+                <br />
+              </span>
+            );
+          })}
+      </div>
+    );
+  }
+}
+
+class UserTransReplyBlock extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const isAccepted = this.props.transData.status === "ACCEPTED";
+
+    if (isAccepted) {
+      return <AcceptedBlock />;
+    } else {
+      return <ReplyBlock data={this.props.transData} parent={this.props.parent} />;
     }
+  }
+}
 
-    function ReplyBlock(props) {
-      props = props.replyData;
-      return (
-        <div className={negotiationStyles["expectation"]}>
-          <textarea
-            value={props.state.replyText}
-            onChange={props.handleComments}
-            rows="4"
-            cols="25"
-            placeholder="Message to dealer here..."
-          />
-          <br />
+class Negotiation extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-          <button
-            className={negotiationStyles.button}
-            onClick={props.handleSubmit}
-            disabled={props.props.data.status != "NEGOTIATION"}
-          >
-            Reply
-          </button>
-          <button
-            className={negotiationStyles.button}
-            onClick={props.handleAccept}
-          >
-            Accept Offer
-          </button>
-        </div>
-      );
-    }
-
-    function UserTransReplyBlock(props) {
-      props = props.transData;
-      const isAccepted = props.props.data.status === "ACCEPTED";
-
-      if (isAccepted) {
-        return <AcceptedBlock />;
-      } else {
-        return <ReplyBlock replyData={props} />;
-      }
-    }
-
-    function VehicleInfoBlock(props) {
-      return (
-        <div className={negotiationStyles["vehicle-info-text-content"]}>
-          VIN: {props.infoData.data.vin_number}
-          <br />
-          Price: {props.infoData.data.actual_price}
-          <br />
-          CustomerID: {props.infoData.data.customer_id}
-          <br />
-          Status: {props.infoData.data.status}
-          <br />
-          Comments: <br />
-          {props.infoData.data.comments &&
-            props.infoData.data.comments.split("\n").map((item, key) => {
-              return (
-                <span key={key}>
-                  {item}
-                  <br />
-                </span>
-              );
-            })}
-        </div>
-      );
-    }
-
+  render() {
     return (
       <div className={negotiationStyles.negotiation}>
         <div className={negotiationStyles["vehicle-info"]}>
           <div className={negotiationStyles["vehicle-info-text"]}>
-            <VehicleInfoBlock infoData={this.props} />
-            <UserTransReplyBlock transData={this} />
+            <VehicleInfoBlock infoData={this.props.data} />
+            <UserTransReplyBlock transData={this.props.data} parent={this.props.parent} />
           </div>
         </div>
         <hr />
@@ -190,6 +198,10 @@ class Negotiation extends React.Component {
     );
   }
 }
+
+VehicleInfoBlock.propTypes = {
+  data: PropTypes.object
+};
 
 Negotiation.propTypes = {
   data: PropTypes.object,
