@@ -27,6 +27,8 @@
 
 .contact-dealer textarea {
   width: 90%;
+  resize: none;
+  min-height: 200px;
 }
 
 .contact-dealer textbox {

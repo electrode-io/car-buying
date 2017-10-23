@@ -36,7 +36,12 @@ class ReplyBlock extends React.Component {
       },
       body: JSON.stringify({
         id: this.props.data.id,
-        comments: this.props.data.comments + "\n" + this.props.parent + ": " + this.state.replyText
+        comments:
+          this.props.data.comments +
+          "\n" +
+          this.props.parent +
+          ": " +
+          this.state.replyText
       })
     })
       .then(response => {
@@ -69,7 +74,12 @@ class ReplyBlock extends React.Component {
         id: this.props.data.id,
         actual_price: this.props.data.actual_price,
         status: "ACCEPTED",
-        comments: this.props.data.comments + "\n" + this.props.parent + ": " + "ACCEPTED OFFER"
+        comments:
+          this.props.data.comments +
+          "\n" +
+          this.props.parent +
+          ": " +
+          "ACCEPTED OFFER"
       })
     })
       .then(response => {
@@ -109,7 +119,10 @@ class ReplyBlock extends React.Component {
         >
           Reply
         </button>
-        <button className={negotiationStyles.button} onClick={this.handleAccept}>
+        <button
+          className={negotiationStyles.button}
+          onClick={this.handleAccept}
+        >
           Accept Offer
         </button>
       </div>
@@ -125,7 +138,9 @@ class AcceptedBlock extends React.Component {
   render() {
     return (
       <div className={negotiationStyles["expectation"]}>
-        <FontAwesome.FaCheckCircle className={negotiationStyles["acceptedIcon"]} />
+        <FontAwesome.FaCheckCircle
+          className={negotiationStyles["acceptedIcon"]}
+        />
         Accepted
       </div>
     );
@@ -138,26 +153,41 @@ class VehicleInfoBlock extends React.Component {
   }
 
   render() {
+    const CommentsBlock = props => {
+      props = props.props;
+      if (props.infoData.comments) {
+        return (
+          <div>
+            <b>Comments</b>: <br />
+            {props.infoData.comments.split("\n").map((item, key) => {
+              return (
+                <span
+                  className={negotiationStyles["vehicle-info-text-comments"]}
+                  key={key}
+                >
+                  {item}
+                  <br />
+                </span>
+              );
+            })}
+          </div>
+        );
+      } else {
+        return "";
+      }
+    };
+
     return (
       <div className={negotiationStyles["vehicle-info-text-content"]}>
-        VIN: {this.props.infoData.vin_number}
+        <b>VIN</b>: {this.props.infoData.vin_number}
         <br />
-        Price: {this.props.infoData.actual_price}
+        <b>Price</b>: {this.props.infoData.actual_price}
         <br />
-        CustomerID: {this.props.infoData.customer_id}
+        <b>CustomerID</b>: {this.props.infoData.customer_id}
         <br />
-        Status: {this.props.infoData.status}
+        <b>Status</b>: {this.props.infoData.status}
         <br />
-        Comments: <br />
-        {this.props.infoData.comments &&
-          this.props.infoData.comments.split("\n").map((item, key) => {
-            return (
-              <span key={key}>
-                {item}
-                <br />
-              </span>
-            );
-          })}
+        <CommentsBlock props={this.props} />
       </div>
     );
   }
@@ -174,7 +204,9 @@ class UserTransReplyBlock extends React.Component {
     if (isAccepted) {
       return <AcceptedBlock />;
     } else {
-      return <ReplyBlock data={this.props.transData} parent={this.props.parent} />;
+      return (
+        <ReplyBlock data={this.props.transData} parent={this.props.parent} />
+      );
     }
   }
 }
@@ -190,7 +222,10 @@ class Negotiation extends React.Component {
         <div className={negotiationStyles["vehicle-info"]}>
           <div className={negotiationStyles["vehicle-info-text"]}>
             <VehicleInfoBlock infoData={this.props.data} />
-            <UserTransReplyBlock transData={this.props.data} parent={this.props.parent} />
+            <UserTransReplyBlock
+              transData={this.props.data}
+              parent={this.props.parent}
+            />
           </div>
         </div>
         <hr />
