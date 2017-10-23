@@ -7,6 +7,7 @@ const HTTP_CREATED = 201;
 const HTTP_ISE = 500;
 const _ = require("lodash");
 
+/* eslint-disable no-console, consistent-return */
 plugin.register = function(server, options, next) {
   server.route({
     method: "GET",
@@ -31,8 +32,8 @@ plugin.register = function(server, options, next) {
           console.log("Transactions READ ERROR");
           return reply();
         }
-        let parsedData = JSON.parse(data);
-        let found = _.filter(parsedData, { status: "NEGOTIATION" });
+        const parsedData = JSON.parse(data);
+        const found = _.filter(parsedData, { status: "NEGOTIATION" });
         if (!_.isEmpty(found)) {
           return reply(found);
         } else {
@@ -46,13 +47,13 @@ plugin.register = function(server, options, next) {
     method: "POST",
     path: "/create-transaction",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (err, data) => {
-        if (err) {
+      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (readErr, data) => {
+        if (readErr) {
           console.log("Transactions READ ERROR");
           return reply("Transactions UPDATE ERROR");
         }
-        let parsedData = JSON.parse(data);
-        let payload = request.payload;
+        const parsedData = JSON.parse(data);
+        const payload = request.payload;
         payload.id = Date.now();
         parsedData.push(payload);
 
@@ -60,11 +61,11 @@ plugin.register = function(server, options, next) {
           path.join(process.cwd(), "data/transactions.json"),
           JSON.stringify(parsedData),
           "utf-8",
-          err => {
-            if (err) {
-              reply("Write Error").code(HTTP_ISE);
+          writeErr => {
+            if (writeErr) {
+              return reply("Write Error").code(HTTP_ISE);
             } else {
-              reply(payload).code(HTTP_CREATED);
+              return reply(payload).code(HTTP_CREATED);
             }
           }
         );
@@ -76,23 +77,23 @@ plugin.register = function(server, options, next) {
     method: "PUT",
     path: "/update-transaction",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (err, data) => {
-        if (err) {
+      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (readErr, data) => {
+        if (readErr) {
           console.log("Transactions READ ERROR");
           return reply("Transactions UPDATE ERROR");
         }
-        let parsedData = JSON.parse(data);
-        let found = _.find(parsedData, { id: request.payload.id });
+        const parsedData = JSON.parse(data);
+        const found = _.find(parsedData, { id: request.payload.id });
         if (!_.isEmpty(found)) {
           fs.writeFile(
             path.join(process.cwd(), "data/transactions.json"),
             JSON.stringify(parsedData),
             "utf-8",
-            err => {
-              if (err) {
-                reply("Write Error").code(HTTP_ISE);
+            writeErr => {
+              if (writeErr) {
+                return reply("Write Error").code(HTTP_ISE);
               } else {
-                reply("created").code(HTTP_CREATED);
+                return reply("created").code(HTTP_CREATED);
               }
             }
           );
@@ -107,13 +108,13 @@ plugin.register = function(server, options, next) {
     method: "PUT",
     path: "/update-negotiation",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (err, data) => {
-        if (err) {
+      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (readErr, data) => {
+        if (readErr) {
           console.log("Transactions READ ERROR");
           return reply("Transactions UPDATE ERROR");
         }
-        let parsedData = JSON.parse(data);
-        let found = _.find(parsedData, {
+        const parsedData = JSON.parse(data);
+        const found = _.find(parsedData, {
           id: request.payload.id,
           status: "NEGOTIATION"
         });
@@ -129,11 +130,11 @@ plugin.register = function(server, options, next) {
             path.join(process.cwd(), "data/transactions.json"),
             JSON.stringify(parsedData),
             "utf-8",
-            err => {
-              if (err) {
-                reply("Write Error").code(HTTP_ISE);
+            writeErr => {
+              if (writeErr) {
+                return reply("Write Error").code(HTTP_ISE);
               } else {
-                reply(found).code(HTTP_CREATED);
+                return reply(found).code(HTTP_CREATED);
               }
             }
           );

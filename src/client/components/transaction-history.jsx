@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import skeleton from "../styles/skeleton.css";
-import custom from "../styles/custom.css";
-import user from "../styles/user.css";
-import sectionStyles from "../styles/section.css";
-import Car from "./car";
+import { browserHistory } from "react-router";
+
 import Negotiation from "./negotiation-box";
 import Banner from "./banner";
-import { browserHistory } from "react-router";
-import dealerStyles from "../styles/dealer.css";
 import Filter from "./filter";
+
+import "../styles/skeleton.css";
+import "../styles/custom.css";
+import user from "../styles/user.css";
+import sectionStyles from "../styles/section.css";
+import dealerStyles from "../styles/dealer.css";
 
 class TransactionHistory extends React.Component {
   constructor(props) {
@@ -54,14 +55,17 @@ const getVisibleTransactions = (transactions, filter) => {
     case "SHOW_ALL":
       return transactions;
     case "ACCEPTED":
-      return transactions.filter(t => t.status == "ACCEPTED");
+      return transactions.filter(t => t.status === "ACCEPTED");
     case "NEGOTIATION":
-      return transactions.filter(t => t.status == "NEGOTIATION");
+      return transactions.filter(t => t.status === "NEGOTIATION");
     default:
       return transactions;
   }
 };
-TransactionHistory.propTypes = {};
+
+TransactionHistory.propTypes = {
+  transactions: PropTypes.array
+};
 
 const mapStateToProps = state => {
   return {

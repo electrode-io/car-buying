@@ -13,25 +13,31 @@ class Car extends React.Component {
     this.props = this.props && this.props.data;
 
     return (
-      <section className={`${carStyles["car"]} ${sectionStyles["flex-container"]}`}>
-        {/* Right Car Image */}
-        <img className={`${carStyles["car-img"]}`} src={require(`../images/${this.props.img_name}`)} />
+      <section
+        className={`${carStyles.car} ${sectionStyles["flex-container"]}`}
+      >
+        {/* Left Car Image */}
+        <img
+          className={`${carStyles["car-img"]}`}
+          src={require(`../images/${this.props.img_name}`)}
+        />
 
         {/* Middle Car Details */}
         <div className={`${carStyles["car-info"]}`}>
           <div className={`${carStyles["left-align-wrapper"]}`}>
             <span className={`${carStyles["car-title"]}`}>
-              Used {this.props.vehicle_year} {this.props.vehicle_make} {this.props.vehicle_model}
+              Used {this.props.vehicle_year} {this.props.vehicle_make}{" "}
+              {this.props.vehicle_model}
             </span>
             <br />
-              Vehicle Type: {this.props.vehicle_type}
-              <br />
-              Mileage: {this.props.mileage}
-              <br />
-              Exterior color: {this.props.vehicle_color}
-              <br />
-              Location: {this.props.vehicle_location}
-              <br />
+            <b>Vehicle Type</b>: {this.props.vehicle_type}
+            <br />
+            <b>Mileage</b>: {this.props.mileage}
+            <br />
+            <b>Exterior color</b>: {this.props.vehicle_color}
+            <br />
+            <b>Location</b>: {this.props.vehicle_location}
+            <br />
           </div>
         </div>
 
@@ -62,6 +68,7 @@ class Car extends React.Component {
 }
 
 Car.propTypes = {
+  data: PropTypes.object,
   img: PropTypes.string,
   vehicle_make: PropTypes.string,
   vehicle_model: PropTypes.string,
@@ -71,7 +78,9 @@ Car.propTypes = {
   list_price: PropTypes.string,
   vin_number: PropTypes.string,
   vehicle_location: PropTypes.string,
-  mileage: PropTypes.string
+  mileage: PropTypes.string,
+  img_name: PropTypes.string,
+  vehicle_type: PropTypes.string
 };
 
 export default Car;

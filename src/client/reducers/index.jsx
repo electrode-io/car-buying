@@ -1,10 +1,4 @@
 import { combineReducers } from "redux";
-import { setVisibilityFilter, visibilityFilters } from "../actions";
-
-const initialState = {
-  visibilityFilter: visibilityFilters.SHOW_ALL,
-  transactions: []
-};
 
 const visibilityFilter = (state = "SHOW_ALL", action) => {
   switch (action.type) {
@@ -15,11 +9,11 @@ const visibilityFilter = (state = "SHOW_ALL", action) => {
   }
 };
 
-let cars = (store = {}, action) => {
+const cars = (store = {}) => {
   return store;
 };
 
-let transactions = (store = {}, action) => {
+const transactions = (store = {}) => {
   return store;
 };
 

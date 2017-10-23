@@ -340,9 +340,10 @@ textarea {
   appearance: none;
 }
 textarea {
-  min-height: 65px;
+  min-height: 200px;
   padding-top: 6px;
   padding-bottom: 6px;
+  resize: none;
 }
 input[type="email"]:focus,
 input[type="number"]:focus,
@@ -428,7 +429,9 @@ th:last-child, td:last-child {
 /* Spacing
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 button, .button {
-  margin-bottom: 1rem;
+  padding: 0 1em;
+  margin: 0 auto;
+  text-align: center;
 }
 input, textarea, select, fieldset {
   margin-bottom: 1.5rem;

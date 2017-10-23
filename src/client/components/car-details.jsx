@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import skeleton from "../styles/skeleton.css";
-import custom from "../styles/custom.css";
-import user from "../styles/user.css";
-import sectionStyles from "../styles/section.css";
-import carDetails from "../styles/car-details.css";
-import { connect } from "react-redux";
 
+import Modal from "./modal-box";
+
+import "../styles/skeleton.css";
+import "../styles/custom.css";
+import carDetails from "../styles/car-details.css";
+import sectionStyles from "../styles/section.css";
+
+/* eslint-disable no-magic-numbers */
 class CarDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -15,17 +17,33 @@ class CarDetails extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.EmailDealer = this.EmailDealer.bind(this);
     this.VehicleInfo = this.VehicleInfo.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.handleOnClose = this.handleOnClose.bind(this);
     this.state = {
       commentBox: "",
       expectedPrice: "",
-      sentMessage: ""
+      sentMessage: "",
+      isOpen: false
     };
   }
+
+  toggleModal() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+  handleOnClose() {
+    this.toggleModal();
+    window.location.reload();
+  }
+
   handleComments(event) {
     this.setState({
       commentBox: event.target.value
     });
   }
+
   handlePrice(event) {
     this.setState({
       expectedPrice: event.target.value
@@ -45,7 +63,7 @@ class CarDetails extends React.Component {
         vin_number: this.props.vin_number,
         actual_price: this.state.expectedPrice,
         status: "NEGOTIATION",
-        comments: "Customer : " + this.state.commentBox
+        comments: `Customer: ${this.state.commentBox}`
       })
     })
       .then(response => {
@@ -56,8 +74,10 @@ class CarDetails extends React.Component {
           this.setState({
             sentMessage: negotiation,
             commentBox: "",
-            actualPrice: ""
+            actualPrice: "",
+            expectedPrice: ""
           });
+          this.toggleModal();
         });
       })
       .catch(err => {
@@ -79,13 +99,13 @@ class CarDetails extends React.Component {
         </h4>
 
         <div className={carDetails["info-left"]}>
-          VIN#: {this.props.vin_number}
+          <b>VIN#</b>: {this.props.vin_number}
           <br />
-          Vehicle Type: {this.props.vehicle_type}
+          <b>Vehicle Type</b>: {this.props.vehicle_type}
           <br />
-          Mileage: {this.props.mileage}
+          <b>Mileage</b>: {this.props.mileage}
           <br />
-          Exterior color: {this.props.vehicle_color}
+          <b>Exterior color</b>: {this.props.vehicle_color}
           <br />
         </div>
         <div className={carDetails["info-right"]}>
@@ -103,7 +123,9 @@ class CarDetails extends React.Component {
         <table>
           <tbody>
             <tr>
-              <th>Email Dealer</th>
+              <th>
+                <h4>Email Dealer</h4>
+              </th>
             </tr>
             <tr>
               <td>
@@ -130,7 +152,7 @@ class CarDetails extends React.Component {
                   onChange={this.handleComments}
                   rows="4"
                   cols="50"
-                  placeholder="Add your personal message"
+                  placeholder="Please add your personal message"
                 />
               </td>
             </tr>
@@ -151,6 +173,9 @@ class CarDetails extends React.Component {
       >
         <this.VehicleInfo />
         <this.EmailDealer />
+        <Modal show={this.state.isOpen} onClose={this.handleOnClose}>
+          You've successfully sent a message to the dealer!
+        </Modal>
       </div>
     );
   }
@@ -158,13 +183,19 @@ class CarDetails extends React.Component {
 
 CarDetails.propTypes = {
   img: PropTypes.string,
+  img_name: PropTypes.string,
   vehicle_make: PropTypes.string,
   vehicle_model: PropTypes.string,
   vehicle_year: PropTypes.string,
+  vehicle_type: PropTypes.string,
   vehicle_color: PropTypes.string,
   actual_price: PropTypes.string,
   list_price: PropTypes.string,
-  vin_number: PropTypes.string
+  vin_number: PropTypes.string,
+  mileage: PropTypes.string,
+  location: PropTypes.shape({
+    state: PropTypes.string
+  })
 };
 
 export default CarDetails;

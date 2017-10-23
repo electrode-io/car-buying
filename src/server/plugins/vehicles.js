@@ -1,12 +1,11 @@
 "use strict";
 
-let http = require("http");
-let querystring = require("querystring");
 const fs = require("fs");
 const path = require("path");
-const _ = require("lodash");
 
 const plugin = {};
+
+/* eslint-disable no-console */
 
 plugin.register = function(server, options, next) {
   server.route({

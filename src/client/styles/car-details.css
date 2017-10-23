@@ -8,60 +8,40 @@
   display: block;
 }
 
-.car-details-info {
-  width: 72%;
-  margin: 2% 2% 0 2%;
-}
-
 .contact-dealer {
   background-color: #ececec;
   width: 20%;
   height: 100vh;
   padding: 2%;
 }
-
-.contact-dealer table tbody tr th,
-.contact-dealer table tbody tr td {
-  font-size: 1.2em;
-}
-
+.contact-dealer table tbody tr td input,
 .contact-dealer textarea {
   width: 90%;
-  resize: none;
-  min-height: 200px;
 }
-
-.contact-dealer textbox {
-  width: 90%;
-}
-
 .contact-dealer button {
-  font-size: 1em;
-  padding: 0 1em;
-  margin: 0 auto;
-  text-align: center;
   float: right;
   background-color: #818387;
   color: white;
 }
+.contact-dealer table tbody tr th,
+.contact-dealer table tbody tr td,
+.car-details .car-details-info .info-left {
+  font-size: 1.3em;
+}
 
+.car-details-info {
+  width: 72%;
+  margin: 2% 2% 0 2%;
+}
 .car-details .car-details-info .info-left,
 .car-details .car-details-info .info-right {
   display: inline-block;
   vertical-align: top;
-  font-size: 1.3em;
 }
-
 .car-details .car-details-info .info-right {
   font-size: 2em;
   font-weight: 800;
   color: #dd5e89;
   float: right;
   margin-right: 5%;
-}
-
-.car-details .fill-in {
-  width: 33%;
-  border: none;
-  height: 1.1em;
 }

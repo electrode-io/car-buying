@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { browserHistory } from "react-router";
 import { connect } from "react-redux";
 
@@ -41,7 +42,9 @@ class UserView extends React.Component {
               "flex-item"
             ]}`}
           >
-            {this.props.cars.map(v => <Car key={v.vin_number} data={v} />)}
+            {this.props &&
+              this.props.cars &&
+              this.props.cars.map(v => <Car key={v.vin_number} data={v} />)}
           </div>
         </div>
       </div>
@@ -53,6 +56,10 @@ const mapStateToProps = state => {
   return {
     cars: state.cars
   };
+};
+
+UserView.propTypes = {
+  cars: PropTypes.array
 };
 
 export default connect(mapStateToProps)(UserView);

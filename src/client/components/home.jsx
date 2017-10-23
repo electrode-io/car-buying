@@ -1,10 +1,10 @@
 import React from "react";
-import { ReactRouter, browserHistory } from "react-router";
+import { browserHistory } from "react-router";
+
 import "../styles/normalize.css";
 import "../styles/raleway.css";
 import skeleton from "../styles/skeleton.css";
 import custom from "../styles/custom.css";
-import electrodePng from "../images/electrode.png";
 
 export default () => (
   <div className={custom.container}>

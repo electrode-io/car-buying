@@ -13,6 +13,13 @@
   vertical-align: bottom;
   padding-left: 10%;
 }
+.negotiation .expectation .button {
+  margin: 2% 2% 0 0;
+  float: left;
+}
+.negotiation .expectation .button:disabled {
+  opacity: 0.5;
+}
 
 .negotiation .expectation textarea {
   resize: none;
@@ -20,7 +27,7 @@
 }
 
 .negotiation .expectation .acceptedIcon {
-  color: green;
+  color: #007F00;
   font-size: 3em;
   margin-right: 10px;
 }

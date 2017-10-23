@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import skeleton from "../styles/skeleton.css";
-import custom from "../styles/custom.css";
-import user from "../styles/user.css";
+import "../styles/skeleton.css";
+import "../styles/custom.css";
+import "../styles/user.css";
 import bannerStyles from "../styles/banner.css";
-
-import { browserHistory } from "react-router";
 
 class Banner extends React.Component {
   constructor(props) {

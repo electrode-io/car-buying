@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
-import { setVisibilityFilter } from "../actions";
 import React from "react";
 import PropTypes from "prop-types";
+
+import { setVisibilityFilter } from "../actions";
 
 const Link = ({ active, children, onClick }) => {
   if (active) {
