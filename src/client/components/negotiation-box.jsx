@@ -55,8 +55,7 @@ class ReplyBlock extends React.Component {
       },
       body: JSON.stringify({
         id: this.props.data.id,
-        comments: `${this.props.data.comments}\n${this.props.parent}: ${this
-          .state.replyText}`
+        comments: `${this.props.data.comments}\n${this.props.parent}: ${this.state.replyText}`
       })
     })
       .then(response => {
@@ -90,8 +89,7 @@ class ReplyBlock extends React.Component {
         id: this.props.data.id,
         actual_price: this.props.data.actual_price,
         status: "ACCEPTED",
-        comments: `${this.props.data.comments}\n${this.props
-          .parent}: ACCEPTED OFFER`
+        comments: `${this.props.data.comments}\n${this.props.parent}: ACCEPTED OFFER`
       })
     })
       .then(response => {
@@ -138,22 +136,16 @@ class ReplyBlock extends React.Component {
         <button
           className={negotiationStyles.button}
           onClick={this.handleSubmit}
-          disabled={
-            this.props.data.status !== "NEGOTIATION" || !this.state.replyText
-          }
+          disabled={this.props.data.status !== "NEGOTIATION" || !this.state.replyText}
         >
           Reply
         </button>
-        <button
-          className={negotiationStyles.button}
-          onClick={this.handleAccept}
-        >
-          Accept Offer
-        </button>
-        <Modal
-          show={this.state && this.state.isOpen}
-          onClose={this.handleOnClose}
-        >
+        {this.props.parent === "Dealer" ? (
+          <button className={negotiationStyles.button} onClick={this.handleAccept}>
+            Accept Offer
+          </button>
+        ) : null}
+        <Modal show={this.state && this.state.isOpen} onClose={this.handleOnClose}>
           <ModalContent type={this.state && this.state.handleType} />
         </Modal>
       </div>
@@ -194,10 +186,7 @@ class VehicleInfoBlock extends React.Component {
               }
 
               return (
-                <span
-                  className={negotiationStyles["vehicle-info-text-comments"]}
-                  key={key}
-                >
+                <span className={negotiationStyles["vehicle-info-text-comments"]} key={key}>
                   {item}
                   <br />
                 </span>
@@ -237,9 +226,7 @@ class UserTransReplyBlock extends React.Component {
     if (isAccepted) {
       return <AcceptedBlock />;
     } else {
-      return (
-        <ReplyBlock data={this.props.transData} parent={this.props.parent} />
-      );
+      return <ReplyBlock data={this.props.transData} parent={this.props.parent} />;
     }
   }
 }
@@ -255,10 +242,7 @@ class Negotiation extends React.Component {
         <div className={negotiationStyles["vehicle-info"]}>
           <div className={negotiationStyles["vehicle-info-text"]}>
             <VehicleInfoBlock infoData={this.props.data} />
-            <UserTransReplyBlock
-              transData={this.props.data}
-              parent={this.props.parent}
-            />
+            <UserTransReplyBlock transData={this.props.data} parent={this.props.parent} />
           </div>
         </div>
         <hr />

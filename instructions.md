@@ -34,10 +34,6 @@
  - Create a file under `src/client/components` called `user.jsx`, with the following content:
     [user.jsx](./src/client/components/user.jsx)
 
- - Create a file called `dealer.jsx` under the components directory.
-   Add the following content:
-   [dealer.jsx](./src/client/components/dealer.jsx)
-
   - We will also create a common component called `car.jsx` used to display information about a car. This will be used both by the user and the dealer component.
     [car.jsx](./src/client/components/car.jsx)
 
@@ -46,7 +42,6 @@
     
  - Add corresponding css files for the components created:
   [user.css](./src/client/styles/user.css)
-  [dealer.css](./src/client/styles/dealer.css)
   [car.css](./src/client/styles/car.css)
   [banner.css](./src/client/styles/banner.css)
   
@@ -64,13 +59,11 @@
   import { Router, Route } from "react-router";
   import Home from "./components/home";
   import User from "./components/user";
-  import Dealer from "./components/dealer";
 
   export const routes = (
    <Router>
      <Route path="/" component={Home} />
      <Route path="/user" component={User} />
-     <Route path="/dealer" component={Dealer} />
    </Router>
   );
   ```
