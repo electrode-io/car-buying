@@ -162,7 +162,7 @@ class AcceptedBlock extends React.Component {
     return (
       <div className={negotiationStyles.expectation}>
         <FaCheckCircle className={negotiationStyles.acceptedIcon} />
-        Accepted
+        Dealer Accepted
       </div>
     );
   }
