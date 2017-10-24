@@ -12,8 +12,10 @@ class Modal extends React.Component {
     return (
       <div className={modalStyles.backdrop}>
         <div className={modalStyles.modalbox}>
-          <p>{this.props.children}</p>
-          <button className={modalStyles.footer} onClick={this.props.onClose}>Close</button>
+          {this.props.children}
+          <button className={modalStyles.footer} onClick={this.props.onClose}>
+            Close
+          </button>
         </div>
       </div>
     );

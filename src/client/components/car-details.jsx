@@ -88,14 +88,15 @@ class CarDetails extends React.Component {
   }
 
   VehicleInfo() {
-    const imgSection = this.props.img_name
-      ? <img src={require(`../images/${this.props.img_name}`)} />
-      : "";
+    const imgSection = this.props.img_name ? (
+      <img src={require(`../images/${this.props.img_name}`)} />
+    ) : (
+      ""
+    );
     return (
       <div className={`${carDetails["car-details-info"]}`}>
         <h4>
-          {this.props.vehicle_year} {this.props.vehicle_make}{" "}
-          {this.props.vehicle_model}
+          {this.props.vehicle_year} {this.props.vehicle_make} {this.props.vehicle_model}
         </h4>
 
         <div className={carDetails["info-left"]}>
@@ -108,9 +109,7 @@ class CarDetails extends React.Component {
           <b>Exterior color</b>: {this.props.vehicle_color}
           <br />
         </div>
-        <div className={carDetails["info-right"]}>
-          ${this.props.list_price}
-        </div>
+        <div className={carDetails["info-right"]}>${this.props.list_price}</div>
         <hr />
         {imgSection}
       </div>
@@ -129,19 +128,14 @@ class CarDetails extends React.Component {
             </tr>
             <tr>
               <td>
-                Hello, I would like to learn more about this{" "}
-                {this.props.vehicle_year} {this.props.vehicle_make}{" "}
-                {this.props.vehicle_model}.
+                Hello, I would like to learn more about this {this.props.vehicle_year}{" "}
+                {this.props.vehicle_make} {this.props.vehicle_model}.
               </td>
             </tr>
             <tr>
               <td>
                 Expected Price:{" "}
-                <input
-                  type="number"
-                  value={this.state.expectedPrice}
-                  onChange={this.handlePrice}
-                />
+                <input type="number" value={this.state.expectedPrice} onChange={this.handlePrice} />
               </td>
             </tr>
             <tr>
@@ -166,11 +160,7 @@ class CarDetails extends React.Component {
   render() {
     this.props = this.props.location.state || {};
     return (
-      <div
-        className={`${carDetails["car-details"]} ${sectionStyles[
-          "flex-container"
-        ]}`}
-      >
+      <div className={`${carDetails["car-details"]} ${sectionStyles["flex-container"]}`}>
         <this.VehicleInfo />
         <this.EmailDealer />
         <Modal show={this.state.isOpen} onClose={this.handleOnClose}>
@@ -193,9 +183,7 @@ CarDetails.propTypes = {
   list_price: PropTypes.string,
   vin_number: PropTypes.string,
   mileage: PropTypes.string,
-  location: PropTypes.shape({
-    state: PropTypes.string
-  })
+  location: PropTypes.object
 };
 
 export default CarDetails;
