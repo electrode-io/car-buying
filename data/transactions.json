@@ -3,7 +3,7 @@
     "customer_id": 1,
     "vin_number": "123123",
     "actual_price": "2700",
-    "status": "ACCEPTED",
+    "status": "NEGOTIATION",
     "id": 1506765113212,
     "comments": "Customer: Will buy for 9k\n"
   },
@@ -19,7 +19,7 @@
     "customer_id": 1,
     "vin_number": "1234590",
     "actual_price": "9000",
-    "status": "ACCEPTED",
+    "status": "NEGOTIATION",
     "comments": "Customer: Will buy for 9k\n",
     "id": 1506800738120
   },
@@ -44,7 +44,7 @@
     "vin_number": "123123",
     "actual_price": "",
     "status": "ACCEPTED",
-    "comments": "Customer: \nDealer: replies here\nUser: ACCEPTED OFFER",
+    "comments": "Customer: \nDealer: replies here",
     "id": 1508369211121
   },
   {
@@ -52,7 +52,7 @@
     "vin_number": "1N4BU31DXVC105673",
     "actual_price": "28000",
     "status": "NEGOTIATION",
-    "comments": "Customer: 2015 Mercedes Benz C300 expected 28000\n",
+    "comments": "Customer: 2015 Mercedes Benz C300 expected 28000\nCustomer: reply back\nCustomer: hows the package?",
     "id": 1508787892368
   },
   {
@@ -67,16 +67,8 @@
     "customer_id": 1,
     "vin_number": "1N4BU31DXVC105673",
     "actual_price": "",
-    "status": "ACCEPTED",
-    "comments": "Customer: \nUser: dsdas\nUser: ACCEPTED OFFER",
-    "id": 1508798182547
-  },
-  {
-    "customer_id": 1,
-    "vin_number": "1N4BU31DXVC105673",
-    "actual_price": "",
     "status": "NEGOTIATION",
-    "comments": "Customer: ",
-    "id": 1508799806267
+    "comments": "Customer:",
+    "id": 1508798182547
   }
 ]

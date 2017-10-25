@@ -3,7 +3,7 @@ We are here to Build your own Car-Buying Experience Application
 
   ## Setting up
 
- - For the development on your local machine, please install the latest [node](https://nodejs.org/en/) in your machine. (Recommended >=6)
+ - For the development on your local machine, please install the latest [node](https://nodejs.org/en/) in your machine. (>=6 recommended)
 
  - To ensure you have everything working together, we have [electrode-ignite](https://docs.electrode.io/chapter1/quick-start/start-with-ignite.html) here for you to help you starting the development with the Electrode platform.
 
@@ -47,65 +47,60 @@ We are here to Build your own Car-Buying Experience Application
 
     ![alt text][initial-app]
 
-    Congratulations to the success of your Electrode application running!
+    Congratulations on the success of your Electrode Application running!
 
 
   ## Start building your car-buying app
 
-   From here, you can develop further based on the generated the electrode app.
+ - From here, you can develop further based on the generated the electrode app.
    Let's start building our own car-buying app.
 
-   ### Build the home page
+   Clean up your `src/client/component` folder, add add below modules under your `package.json` dependencies filed.
 
-   Now, you can clean up your `src/client/component` folder and create a new file: `src/client/components/home.jsx`.
+   ```
+   "react-icons": "^2.2.7",
+   "react-modal": "^3.0.4"
+   ```
+   Re-install.
+
+   Create a new file: `src/client/components/home.jsx`.
    Replace the contents of that file with: [Home.jsx](./src/client/components/home.jsx).
 
-   Now, switch to your localhost, and you shall see:
+   Now, switch to your localhost, and you can see:
    ![alt text][home1]
 
-   ### Build the user view
-
-   Home.jsx is the main page of the app. It offers the user to pick either buyer or dealer role.
+ - Home.jsx is the main page of the app. It offers the user to pick the buyer/dealer role.
    We now need to create components for the car buyer and dealer role.
-
+   <br/>
    Create a file named "user.jsx" under directory `src/client/components`, copy the following content inside: [user.jsx](./src/client/components/user.jsx)
+   <br/>
+   Add corresponding css files for it at directory `src/client/styles`, copy the following content inside: [user.css](./src/client/styles/user.css)
+   <br/>
 
-   Add it's corresponding css file at directory `src/client/styles`, copy the following content inside: [user.css](./src/client/styles/user.css)
+   `User` Component is composed by `User Banner` and `Car Inventory` sections as below:
+   `User Banner`:
+   ![alt text][user-banner]
 
+   `Car Inventory`:
+   ![alt text][car-inventory]
 
-   `User` Component is composed by `User Banner` and `Car Inventory` components as below:
+  - Now lets build these two components!
 
-   - User Banner:
+    User Banner serves as a header for the user page. Create a file named "banner.jsx" under directory `src/client/components`, copy the following content inside: [banner.jsx](./src/client/components/banner.jsx)
 
-     ![alt text][user-banner]
-
-   - Car Inventory:
-
-     ![alt text][car-inventory]
-
-  ### Build the user banner
-
-  User Banner serves as a header for the user page.
-
-  Create a file named "banner.jsx" under directory `src/client/components`, copy the following content inside: [banner.jsx](./src/client/components/banner.jsx)
-
-  Add corresponding css files for it at directory `src/client/styles`, copy the following content inside: [banner.css](./src/client/styles/banner.css)
-
-  ### Build the car inventory
-
-  Car Inventory is a collection of `Car` Component. It used to display information about a car. This will be used both by the user and the dealer component. Create a file named "car.jsx" under directory `src/client/components`, copy the following content inside: [car.jsx](./src/client/components/car.jsx)
+    Add corresponding css files for it at directory `src/client/styles`, copy the following content inside: [banner.css](./src/client/styles/banner.css)
 
 
-  Add corresponding css files for it at directory `src/client/styles`, copy the following content inside: [car.css](./src/client/styles/car.css)
+    Car Inventory is a collection of `Car` Component. It used to display information about a car. This will be used both by the user and the dealer component. Create a file named "car.jsx" under directory `src/client/components`, copy the following content inside: [car.jsx](./src/client/components/car.jsx)
+    <br/>
+    Add corresponding css files for it at directory `src/client/styles`, copy the following content inside: [car.css](./src/client/styles/car.css)
 
 
-  Add a few images for the cars from [this directory](./src/client/images).
-
-  And add & update these css for common css styles:
-  [custom.css](./src/client/styles/custom.css)
-  [normalize.css](./src/client/styles/normalize.css)
-  [section.css](./src/client/styles/section.css)
-  [skeleton.css](./src/client/styles/skeleton.css)
+    Add a few images for the cars from [this directory](./src/client/images). And add & update these css for common css styles:
+    <br/>
+    [section.css](./src/client/styles/section.css)
+    [custom.css](./src/client/styles/custom.css)
+    [skeleton.css](./src/client/styles/skeleton.css)
 
   - We can now add routes to connect the buttons on the homepage to the appropriate views. Modify the `routes.jsx` file under `src/client` with the following code.
 
@@ -129,7 +124,8 @@ We are here to Build your own Car-Buying Experience Application
 
     ![alt text][user1]
 
-  ### Adding Plugins
+  - Adding Plugins
+
     As you can see above, user view is suppose to display a list of cars available in the inventory. We will add an api that reads the available inventory from file.
 
     We will store the vehicles inventory in a file called `vehicles.json` stored under the `data` directory at the root level. You can copy the content for the file from [here](./data/vehicles.json) to your directory `data/vehicles.json`.
@@ -140,12 +136,11 @@ We are here to Build your own Car-Buying Experience Application
 
     ```js
     "./server/plugins/vehicles": {
-      "module": "./{{env.APP_SRC_DIR}}server/plugins/vehicles"
+      module: "./{{env.APP_SRC_DIR}}server/plugins/vehicles"
     }
     ```
 
-  ### Add car-details component to display the details of a vehicle and contact the dealer using a form
-
+  - Add another component to display the details of a vehicle and contact the dealer using a form.
     Add component file, [car-details.jsx](./src/client/components/car-details.jsx) and its corresponding [css](./src/styles/car-details.css).
     Also update `client/routes.jsx` with the new Route:
 
@@ -159,12 +154,9 @@ We are here to Build your own Car-Buying Experience Application
     ```
 
     Inside `car-details` component, we are using `Modalbox` for prompting messages feedback dialog.
-    Add `"react-modal": "^3.0.4"` to your `package.json` dependencies and install npm module.
-    And add [modal-box.jsx](./src/client/components/modal-box.jsx) and its corresponding [css](./src/styles/modal.css) here.
+    Add [modal-box.jsx](./src/client/components/modal-box.jsx) and its corresponding [css](./src/styles/modal.css) here.
 
-
- ### Add data and populate the initial state for the pages
-
+ - Add data and populate the initial state for the pages.
    In `src/server/views/index-views.jsx`, modify the createRedux Store function to read from the data file we had created:
 
    ```js
@@ -201,9 +193,8 @@ We are here to Build your own Car-Buying Experience Application
     }
     ```
 
- ### Add the corresponding Reducer and Actions
-
-  In order to correctly map the transactions, car inventory and the visibilityFilter, we need to define them in the actions and reducer.
+- Add the corresponding Reducer and Actions:
+  In order to correctly map the transactions, car inventory and the visibilityFilter, we need to define them in the  actions and reducer.
 
   The `src/clients/actions/index.js` file can be updated with :
 
@@ -257,60 +248,46 @@ We are here to Build your own Car-Buying Experience Application
   And now, your user view is complete!
   Go back to your http://localhost:3000/user and refresh the page, you should see:
 
-  ![alt text][user2]
 
-  Also, if you switch to your http://localhost:3000/car-details and refresh the page, you should see:
-
-  ![alt text][car-details]
-
-  ## Challenge
-
-  - Now, let's move on to some challenges. :-)
-  Since you've already known how to store the vehicles inventory and display to car inventory page, let's have some practice on storing transactions data for transactions page.
-
-  - Add a file named `transactions.js` under `src/server/plugins` with the content from [here](./src/server/plugins/transactions.js).
+ - Now add the transactions plugin, which contains the api for modifying transactions.
+   Add a file named `transactions.js` under `src/server/plugins` with the content from [here](./src/server/plugins/transactions.js).
    You will have api's to Get, create and update transactions. There is also an API that filters and updates transactions of a specific type.
+   Also add this plugin to the `default.js` file.
 
-  - We can now add views that display our transactions loaded from the file.
-    Create a component file called `transaction-history.jsx`. This is the view for the user to update the transactions.
-    Create the file under `src/client/components` with content from [here](./src/client/components/transaction-history.jsx).
-
-  - Also add a file, `filter.jsx` under `src/client/components/` with [content](./src/client/components/filter.jsx) .We use this for diplaying Links that filter transactions based on their status.
-
-  - We also add a component called `negotiation-box.jsx` which provides the UI for updating transactions and communicating between the user and the dealer.
-  Add this file under `src/client/components/` with content from [here](./src/client/components/negotiation-box.jsx) and its css [here](./src/client/styles/negotiation.css).
-
-  negotiation-box is composed by `ReplyBlock` component and `VehicleInfoBlock` component. Which can be found [here](./src/client/components/reply-block.jsx) and [here](./src/client/components/vehicle-info.jsx)
-
-  - Now link the component via routes to the other pages. Add the following to the `routes.jsx` file.
-
-    ```js
-      import TransactionHistory from "./components/transaction-history";
-      ..
-      ..
-      <Route path="/history" component={TransactionHistory} />
+   ```js
+    "./server/plugins/transactions": {
+      "module": "./{{env.APP_SRC_DIR}}server/plugins/transactions"
+    }
     ```
 
-    And now, your user transaction history view is complete!
-    Go back to your http://localhost:3000/transaction-history and refresh the page, you should see:
+ - We can now add views that display our transactions loaded from the file.
+   Create a component file called `transaction-history.jsx`. This is the view for the user to update the transactions.
+   Create the file under `src/client/components` with content from [here](./src/client/components/transaction-history.jsx).
 
-    ![alt text][transaction-history]
+- Also add a file, `filter.jsx` under `src/client/components/` with [content](./src/client/components/filter.jsx) .We use this for diplaying Links that filter transactions based on their status.
 
-  - Similarly on the dealer flow, we will add a view component called `dealer-transactions.jsx` under `src/client/components` with [content](./src/client/components/dealer-transactions.jsx).
+- We also add a component called `negotiation-box.jsx` which provides the UI for updating transactions and communicating between the user and the dealer.
+  Add this file under `src/client/components/` with content from [here](./src/client/components/negotiation-box.jsx).
 
-  - Also add the route to `routes.jsx` for the new component.
+- Now link the component via routes to the other pages. Add the following to the `routes.jsx` file.
 
-    ```js
-      import DealerTransactions from "./components/dealer-transactions";
-      ..
-      ..
-      <Route path="/dealer-transactions" component={DealerTransactions} />
-    ```
+  ```js
+    import TransactionHistory from "./components/transaction-history";
+    ..
+    ..
+    <Route path="/history" component={TransactionHistory} />
+  ```
 
-    And now, your dealer transaction history view is complete!
-    Go back to your http://localhost:3000/transaction-history and refresh the page, you should see:
+- Similarly on the dealer flow, we will add a view component called `dealer-transactions.jsx` under `src/client/components` with [content](./src/client/components/dealer-transactions.jsx).
 
-    ![alt text][transaction-history2]
+- Also add the route to `routes.jsx` for the new component.
+
+  ```js
+    import DealerTransactions from "./components/dealer-transactions";
+    ..
+    ..
+    <Route path="/dealer-transactions" component={DealerTransactions} />
+  ```
 
  -  Your app is now complete and you should be able to update and create transactions and negotiations.
 
@@ -321,6 +298,3 @@ We are here to Build your own Car-Buying Experience Application
  [car-inventory]: instructions_img/car-inventory.png
  [user1]: instructions_img/user1.png
  [user2]: instructions_img/user2.png
- [car-details]: instructions_img/car-details.png
- [transaction-history]: instructions_img/transaction-history1.png
- [transaction-history2]: instructions_img/transaction-history2.png
