@@ -25,13 +25,19 @@ function createReduxStore(req, match) {
 
   return Promise.all([
     // DO ASYNC THUNK ACTIONS HERE : store.dispatch(boostrapApp())
-    readFileAsync(path.resolve("data", "transactions.json"))
-      .then(JSON.parse)
+    req.server
+      .inject("/transactions")
+      .then(res => {
+        return JSON.parse(res.payload);
+      })
       .catch(() => {
         return {};
       }),
-    readFileAsync(path.resolve("data", "vehicles.json"))
-      .then(JSON.parse)
+    req.server
+      .inject("/vehicles")
+      .then(res => {
+        return JSON.parse(res.payload);
+      })
       .catch(() => {
         return {};
       })

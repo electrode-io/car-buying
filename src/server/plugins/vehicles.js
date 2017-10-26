@@ -2,6 +2,8 @@
 
 const fs = require("fs");
 const path = require("path");
+let http = require("http");
+let querystring = require("querystring");
 
 const plugin = {};
 
@@ -12,12 +14,28 @@ plugin.register = function(server, options, next) {
     method: "GET",
     path: "/vehicles",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "vehicles.json"), "utf8", (err, data) => {
-        if (err) {
-          console.log("Vehicles READ ERROR");
-          return reply();
-        }
-        return reply(JSON.parse(data));
+      let options = {
+        host: "localhost",
+        path: "/vehicles",
+        port: "8000"
+      };
+
+      let req = http.get(options, function(res) {
+        let bodyChunks = [];
+        res
+          .on("data", function(chunk) {
+            bodyChunks.push(chunk);
+          })
+          .on("end", function() {
+            let body = Buffer.concat(bodyChunks);
+            let results = JSON.parse(body);
+            return reply(results);
+          });
+      });
+
+      req.on("error", function(e) {
+        console.log("ERROR: " + e.message);
+        return reply("ERROR:" + e.message);
       });
     }
   });

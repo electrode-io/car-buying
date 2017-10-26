@@ -6,6 +6,8 @@ const path = require("path");
 const HTTP_CREATED = 201;
 const HTTP_ISE = 500;
 const _ = require("lodash");
+const http = require("http");
+const querystring = require("querystring");
 
 /* eslint-disable no-console, consistent-return */
 plugin.register = function(server, options, next) {
@@ -13,12 +15,28 @@ plugin.register = function(server, options, next) {
     method: "GET",
     path: "/transactions",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (err, data) => {
-        if (err) {
-          console.log("Transactions READ ERROR");
-          return reply();
-        }
-        return reply(JSON.parse(data));
+      let options = {
+        host: "localhost",
+        path: "/transactions",
+        port: "8000"
+      };
+
+      let req = http.get(options, function(res) {
+        let bodyChunks = [];
+        res
+          .on("data", function(chunk) {
+            bodyChunks.push(chunk);
+          })
+          .on("end", function() {
+            let body = Buffer.concat(bodyChunks);
+            let results = JSON.parse(body);
+            return reply(results);
+          });
+      });
+
+      req.on("error", function(e) {
+        console.log("ERROR: " + e.message);
+        return reply("ERROR:" + e.message);
       });
     }
   });
