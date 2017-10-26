@@ -10,16 +10,16 @@ plugin.register = (server, options, next) => {
     method: "GET",
     path: "/transactions",
     handler: (request, reply) => {
-      let options = {
+      const requestOptions = {
         host: "localhost",
         path: "/transactions",
         port: "8000"
       };
 
-      const req = http.get(options, (res) => {
+      const req = http.get(requestOptions, res => {
         const bodyChunks = [];
         res
-          .on("data", (chunk) => {
+          .on("data", chunk => {
             bodyChunks.push(chunk);
           })
           .on("end", () => {
@@ -29,7 +29,7 @@ plugin.register = (server, options, next) => {
           });
       });
 
-      req.on("error", (e) => {
+      req.on("error", e => {
         console.log(`ERROR: ${e.message}`);
         return reply(`ERROR: ${e.message}`);
       });
@@ -40,16 +40,16 @@ plugin.register = (server, options, next) => {
     method: "GET",
     path: "/get-negotiations",
     handler: (request, reply) => {
-      let options = {
+      const requestOptions = {
         host: "localhost",
         path: "/get-negotiations",
         port: "8000"
       };
 
-      const req = http.get(options, (res) => {
+      const req = http.get(requestOptions, res => {
         const bodyChunks = [];
         res
-          .on("data", (chunk) => {
+          .on("data", chunk => {
             bodyChunks.push(chunk);
           })
           .on("end", () => {
@@ -58,7 +58,7 @@ plugin.register = (server, options, next) => {
             return reply(results);
           });
       });
-      req.on("error", (e) => {
+      req.on("error", e => {
         console.log(`ERROR: ${e.message}`);
         return reply(`ERROR: ${e.message}`);
       });
@@ -76,7 +76,7 @@ plugin.register = (server, options, next) => {
         status: request.payload.status,
         comments: request.payload.comments
       });
-      let options = {
+      const requestOptions = {
         host: "localhost",
         path: "/create-transaction",
         port: "8000",
@@ -87,10 +87,10 @@ plugin.register = (server, options, next) => {
         }
       };
 
-      const req = http.request(options, (res) => {
+      const req = http.request(requestOptions, res => {
         const bodyChunks = [];
         res
-          .on("data", (chunk) => {
+          .on("data", chunk => {
             bodyChunks.push(chunk);
           })
           .on("end", () => {
@@ -100,7 +100,7 @@ plugin.register = (server, options, next) => {
           });
       });
 
-      req.on("error", (e) => {
+      req.on("error", e => {
         console.log(`ERROR: ${e.message}`);
         return reply(`ERROR: ${e.message}`);
       });
@@ -121,9 +121,9 @@ plugin.register = (server, options, next) => {
         status: request.payload.status
       });
 
-      let options = {
+      const requestOptions = {
         host: "localhost",
-        path: `/transactions`,
+        path: `/update-transaction`,
         port: "8000",
         method: "POST",
         headers: {
@@ -132,10 +132,10 @@ plugin.register = (server, options, next) => {
         }
       };
 
-      const req = http.request(options, res => {
+      const req = http.request(requestOptions, res => {
         const bodyChunks = [];
         res
-          .on("data", (chunk) => {
+          .on("data", chunk => {
             bodyChunks.push(chunk);
           })
           .on("end", () => {
@@ -145,7 +145,7 @@ plugin.register = (server, options, next) => {
           });
       });
 
-      req.on("error", (e) => {
+      req.on("error", e => {
         console.log(`ERROR: ${e.message}`);
         return reply(`ERROR: ${e.message}`);
       });

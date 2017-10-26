@@ -9,16 +9,16 @@ plugin.register = function(server, options, next) {
     method: "GET",
     path: "/vehicles",
     handler: (request, reply) => {
-      let options = {
+      const requestOptions = {
         host: "localhost",
         path: "/vehicles",
         port: "8000"
       };
 
-      const req = http.get(options, (res) => {
+      const req = http.get(requestOptions, res => {
         const bodyChunks = [];
         res
-          .on("data", (chunk) => {
+          .on("data", chunk => {
             bodyChunks.push(chunk);
           })
           .on("end", () => {
@@ -28,7 +28,7 @@ plugin.register = function(server, options, next) {
           });
       });
 
-      req.on("error", (e) => {
+      req.on("error", e => {
         console.log(`ERROR: ${e.message}`);
         return reply(`ERROR: ${e.message}`);
       });

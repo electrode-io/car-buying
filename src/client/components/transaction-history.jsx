@@ -31,7 +31,9 @@ class TransactionHistory extends React.Component {
         <div className={`${CarBuyingStyles.userView} ${CarBuyingStyles["flex-container"]}`}>
           {/* Transactions List Section */}
           <div className={`${CarBuyingStyles["cars-list"]} ${CarBuyingStyles["flex-item"]}`}>
-            {this.props.transactions.map(v => <Negotiation key={v.id} data={v} parent="Customer" />)}
+            {this.props.transactions.map(v => (
+              <Negotiation key={v.id} data={v} parent="Customer" />
+            ))}
           </div>
           <div className={`${CarBuyingStyles.tabs} ${CarBuyingStyles["flex-item"]}`}>
             <p className={CarBuyingStyles.filter}>
