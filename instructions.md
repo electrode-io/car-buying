@@ -24,7 +24,7 @@ We are here to Build your own Car-Buying Experience Application
    If you didn't have your npm ready, please install npm using
 
    ```bash
-   npm install npm@latest -g
+   npm install npm -g
    ```
 
    > Note: Please avoid using npm version v5.4.x, it may cause an incorrect installation.
@@ -59,37 +59,43 @@ We are here to Build your own Car-Buying Experience Application
 
    ### Get ready with
 
-   In this app, we need to use `react-modal` and `react-icons` modules for this app, please install these two modules beforehand:
+   In this app, we need to use `react-modal` and `react-icons` modules for this app, please stop server running and install these two modules beforehand:
 
    ```
    $ npm install --save react-modal react-icons
    ```
 
-   Also, in order to convenient all the developers, we've combined css into one single file. You can import css file at directory `src/client/styles`, create a new file called `car-buying.css` and copy the following content inside: [car-buying.css](./src/client/styles/car-buying.css)
+   Also, in order to convenient all the developers, we've combined css into one single file. You just need create a new file `./src/client/styles/car-buying.css` and copy the following content inside: [car-buying.css](./src/client/styles/car-buying.css)
 
    ### Build the home page
 
    Now, let's start build our home page. Looking for the file: `src/client/components/home.jsx`, replace the contents of that file with: [Home.jsx](./src/client/components/home.jsx).
 
-   Now, switch to your localhost, and you can see:
+   Now, re-start your server by `clap dev` and switch to your http://localhost:3000/, and you can see:
    ![alt text][home1]
+
+   Yay! You've got your home page done.
 
    ### Build the user view
 
    Home.jsx is the main page of your app. It offers the user to pick either buyer or dealer role.
    We now need to create components for the car buyer and dealer role.
 
+   - Let's have a quick peek of whats the components gonna looks like:
+
+     `User` Component is composed by `User Banner` and `Car Inventory` components as below:
+
+     - User Banner:
+
+       ![alt text][user-banner]
+
+     - Car Inventory:
+
+       ![alt text][car-inventory]
+
+   - Let's build!
+
    Create a file named "user.jsx" under directory `src/client/components`, copy the following content inside: [user.jsx](./src/client/components/user.jsx)
-
-   `User` Component is composed by `User Banner` and `Car Inventory` components as below:
-
-   - User Banner:
-
-     ![alt text][user-banner]
-
-   - Car Inventory:
-
-     ![alt text][car-inventory]
 
   ### Build the user banner
 
@@ -120,14 +126,17 @@ We are here to Build your own Car-Buying Experience Application
     );
     ```
 
-    Now, the initial user view should be ready for you. Open http://localhost:3000/user, you can see:
+    Now, the initial user view should be ready for you.
+    Restart the server and wait for your app being re-compiled.
+    Open http://localhost:3000/user, you can see:
 
     ![alt text][user1]
 
   ### Adding Plugins
+
     As you can see above, user view is suppose to display a list of cars available in the inventory. We will add an api that reads the available inventory from file.
 
-    We will store the vehicles inventory in a file called `vehicles.json` stored under the `data` directory at the root level. You can copy the content for the file from [here](./data/vehicles.json) to your directory `data/vehicles.json`.
+    We will store the vehicles inventory in a file called `vehicles.json` which is stored under a [mock server](https://gecgithub01.walmart.com/a0d00hf/car-buying-service).
 
     Create a file called `vehicles.js` under `src/server/plugins` with content from [here](./src/server/plugins/vehicles.js). This file exposes and API to get the list of vehicles present in the inventory.
 
@@ -139,175 +148,91 @@ We are here to Build your own Car-Buying Experience Application
     }
     ```
 
-  ### Add car-details component to display the details of a vehicle and contact the dealer using a form
-
-    Add component file, [car-details.jsx](./src/client/components/car-details.jsx) under `src/component` directory.
-    Also update `client/routes.jsx` with the new Route:
-
-    ```
-    import CarDetails from "./components/car-details";
-    <Router>
-     ..
-     ..
-     <Route path="/car-details" component={CarDetails} />
-    </Router>
-    ```
-
-    And add [modal-box.jsx](./src/client/components/modal-box.jsx) here.
-
-
  ### Add data and populate the initial state for the pages
 
-   In `src/server/views/index-views.jsx`, modify the createRedux Store function to read from the data file we had created:
+   - In `src/server/views/index-views.jsx`, update with the content here:
 
-   ```js
-   import fs from "fs";
-   import path from "path";
-   const readFileAsync = Promise.promisify(fs.readFile);
-
-   function createReduxStore(req, match) {
-     return Promise.all([
-       readFileAsync(path.resolve("data", "transactions.json"))
-         .then(JSON.parse)
-         .catch(() => {
-           return {};
-         }),
-       readFileAsync(path.resolve("data", "vehicles.json"))
-         .then(JSON.parse)
-         .catch(() => {
-           return {};
-         })
-     ]).then(([transactions, vehicles]) => storeInitializer(req, transactions, vehicles));
-   }
    ```
+    import ReduxRouterEngine from "electrode-redux-router-engine";
+    import { routes } from "../../client/routes";
+    import { createStore } from "redux";
+    import rootReducer from "../../client/reducers";
+    import fs from "fs";
+    import path from "path";
 
-    add a function to initialize the redux store.
+    const Promise = require("bluebird");
+    const readFileAsync = Promise.promisify(fs.readFile);
 
-    ```js
-    function storeInitializer(req, transactions, vehicles) {
+    function storeInitializer(req, vehicles) {
       let initialState = {
-        transactions: transactions,
-        cars: vehicles,
-        visibilityFilter: "SHOW_ALL"
+        cars: vehicles
       };
       return createStore(rootReducer, initialState);
     }
-    ```
+    function createReduxStore(req, match) {
 
- ### Add the corresponding Reducer and Actions
+      return Promise.all([
+        req.server
+          .inject("/vehicles")
+          .then(res => {
+            return JSON.parse(res.payload);
+          })
+          .catch(() => {
+            return {};
+          })
+      ]).then(([vehicles]) => storeInitializer(req, vehicles));
+    }
 
-  In order to correctly map the transactions, car inventory and the visibilityFilter, we need to define them in the actions and reducer.
-
-  The `src/clients/actions/index.js` file can be updated with :
-
-  ```js
-    export const visibilityFilters = {
-      SHOW_ALL: "SHOW_ALL",
-      SHOW_NEGOTIATIONS: "NEGOTIATIONS",
-      SHOW_ACCEPTED: "ACCEPTED"
-    };
-
-    export const setVisibilityFilter = filter => {
-      return { type: "SET_VISIBILITY_FILTER", filter };
-    };
-  ```
-
-  And the reducer `src/client/reducers/index.js` should be updated :
-
-  ```js
-    import { combineReducers } from "redux";
-    import { setVisibilityFilter, visibilityFilters } from "../actions";
-
-    const initialState = {
-      visibilityFilter: visibilityFilters.SHOW_ALL,
-      transactions: []
-    };
-
-    const visibilityFilter = (state = "SHOW_ALL", action) => {
-      switch (action.type) {
-        case "SET_VISIBILITY_FILTER":
-          return action.filter;
-        default:
-          return state;
+    module.exports = req => {
+      const app = (req.server && req.server.app) || req.app;
+      if (!app.routesEngine) {
+        app.routesEngine = new ReduxRouterEngine({ routes, createReduxStore });
       }
+
+      return app.routesEngine.render(req);
     };
+   ```
 
-    let cars = (store = {}, action) => {
-      return store;
-    };
+   Since we do not have any actions for now, please delete the contents from the file `src/client/actions/index.js` for now and update the file `src/client/reducers.jsx` with:
 
-    let transactions = (store = {}, action) => {
-      return store;
-    };
+   ```
+   import {combineReducers} from "redux";
+   export default combineReducers({});
+   ```
 
-    export default combineReducers({
-      cars,
-      transactions,
-      visibilityFilter
-    });
-  ```
-
-  And now, your user view is complete!
-
-  Go back to your http://localhost:3000/user and refresh the page, you should see:
+  Re-start the server and go back to your http://localhost:3000/user, you should see:
 
   ![alt text][user2]
 
+  Congratulations! You've finished the main focus of today's workshop. Now its time to try by your own :-)
 
-  Also, if you switch to your http://localhost:3000/car-details and refresh the page, you should see:
+  ## Try your own
 
-  ![alt text][car-details]
+  Now, you are planning to build a dealer view. From what you've already learned above about how to store the vehicles inventory and display to car inventory page, let's have some practice on storing transactions data for transactions page.
+
+  Here is what you will build:
+  ![alt text][transaction-history2]
+
+  And here is what you need to do:
+
+  - Add a `transactions.js` file under server's plugins, you will have api's to get, create and update transactions.
+  - Add views `src/client/components` that display our transactions loaded from the file.
 
   ## Challenge
 
-  - Now, let's move on to some challenges. :-)
-  Since you've already known how to store the vehicles inventory and display to car inventory page, let's have some practice on storing transactions data for transactions page.
+  - Wow you are doing a great job! If you still have time, let's move on to some challenges. :-)
 
-  - Add a file named `transactions.js` under `src/server/plugins` with the content from [here](./src/server/plugins/transactions.js).
-   You will have api's to Get, create and update transactions. There is also an API that filters and updates transactions of a specific type.
+  If you switch to user view at http://localhost:3000/user, you will realize the `Details` button is not working for now.
+  Here is what we planning to have:
 
-  - We can now add views that display our transactions loaded from the file.
-    Create a component file called `transaction-history.jsx`. This is the view for the user to update the transactions.
-    Create the file under `src/client/components` with content from [here](./src/client/components/transaction-history.jsx).
+  ![alt text][car-details]
 
-  - Also add a file, `filter.jsx` under `src/client/components/` with [content](./src/client/components/filter.jsx) .We use this for diplaying Links that filter transactions based on their status.
+  Let's add a route for car details and build the view above!
 
-  - We also add a component called `negotiation-box.jsx` which provides the UI for updating transactions and communicating between the user and the dealer.
-  Add this file under `src/client/components/` with content from [here](./src/client/components/negotiation-box.jsx) and its css [here](./src/client/styles/negotiation.css).
+  ## Thank you
 
-  negotiation-box is composed by `ReplyBlock` component and `VehicleInfoBlock` component. Which can be found [here](./src/client/components/reply-block.jsx) and [here](./src/client/components/vehicle-info.jsx)
-
-  - Now link the component via routes to the other pages. Add the following to the `routes.jsx` file.
-
-    ```js
-      import TransactionHistory from "./components/transaction-history";
-      ..
-      ..
-      <Route path="/history" component={TransactionHistory} />
-    ```
-
-    And now, your user transaction history view is complete!
-    Go back to your http://localhost:3000/transaction-history and refresh the page, you should see:
-
-    ![alt text][transaction-history]
-
-  - Similarly on the dealer flow, we will add a view component called `dealer-transactions.jsx` under `src/client/components` with [content](./src/client/components/dealer-transactions.jsx).
-
-  - Also add the route to `routes.jsx` for the new component.
-
-    ```js
-      import DealerTransactions from "./components/dealer-transactions";
-      ..
-      ..
-      <Route path="/dealer-transactions" component={DealerTransactions} />
-    ```
-
-    And now, your dealer transaction history view is complete!
-    Go back to your http://localhost:3000/transaction-history and refresh the page, you should see:
-
-    ![alt text][transaction-history2]
-
- -  Your app is now complete and you should be able to update and create transactions and negotiations.
+  Again, thank you so much for joining this workshop with Electrode today. We are happy to have you here to program together.
+  We create a whole version of the car-buying app [here](https://gecgithub01.walmart.com/a0d00hf/car-buying-service) if you are interested to check it out!
 
  [initial-app]: instructions_img/initial-app.png
  [generator-prompts]: instructions_img/generator-prompts.png
