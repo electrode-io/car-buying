@@ -11,21 +11,18 @@ class Car extends React.Component {
     this.props = this.props && this.props.data;
 
     return (
-      <section
-        className={`${CarBuyingStyles.car} ${CarBuyingStyles["flex-container"]}`}
-      >
+      <section className={`${CarBuyingStyles.car} ${CarBuyingStyles["flex-container"]}`}>
         {/* Left Car Image */}
         <img
           className={`${CarBuyingStyles["car-img"]}`}
-          src={require(`../images/${this.props.img_name}`)}
+          src={`http://localhost:8000/images/${this.props.img_name}`}
         />
 
         {/* Middle Car Details */}
         <div className={`${CarBuyingStyles["car-info"]}`}>
           <div className={`${CarBuyingStyles["left-align-wrapper"]}`}>
             <span className={`${CarBuyingStyles["car-title"]}`}>
-              Used {this.props.vehicle_year} {this.props.vehicle_make}{" "}
-              {this.props.vehicle_model}
+              Used {this.props.vehicle_year} {this.props.vehicle_make} {this.props.vehicle_model}
             </span>
             <br />
             <b>Vehicle Type</b>: {this.props.vehicle_type}

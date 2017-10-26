@@ -88,7 +88,7 @@ class CarDetails extends React.Component {
 
   VehicleInfo() {
     const imgSection = this.props.img_name ? (
-      <img src={require(`../images/${this.props.img_name}`)} />
+      <img src={`http://localhost:8000/images/${this.props.img_name}`} />
     ) : (
       ""
     );
