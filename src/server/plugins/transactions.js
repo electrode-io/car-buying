@@ -45,18 +45,28 @@ plugin.register = function(server, options, next) {
     method: "GET",
     path: "/get-negotiations",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (err, data) => {
-        if (err) {
-          console.log("Transactions READ ERROR");
-          return reply();
-        }
-        const parsedData = JSON.parse(data);
-        const found = _.filter(parsedData, { status: "NEGOTIATION" });
-        if (!_.isEmpty(found)) {
-          return reply(found);
-        } else {
-          return reply();
-        }
+      let options = {
+        host: "localhost",
+        path: "/get-negotiations",
+        port: "8000"
+      };
+
+      let req = http.get(options, function(res) {
+        let bodyChunks = [];
+        res
+          .on("data", function(chunk) {
+            bodyChunks.push(chunk);
+          })
+          .on("end", function() {
+            let body = Buffer.concat(bodyChunks);
+
+            const results = JSON.parse(body);
+            return reply(results);
+          });
+      });
+      req.on("error", function(e) {
+        console.log("ERROR: " + e.message);
+        return reply("ERROR:" + e.message);
       });
     }
   });
@@ -65,60 +75,45 @@ plugin.register = function(server, options, next) {
     method: "POST",
     path: "/create-transaction",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (readErr, data) => {
-        if (readErr) {
-          console.log("Transactions READ ERROR");
-          return reply("Transactions UPDATE ERROR");
-        }
-        const parsedData = JSON.parse(data);
-        const payload = request.payload;
-        payload.id = Date.now();
-        parsedData.push(payload);
-
-        fs.writeFile(
-          path.join(process.cwd(), "data/transactions.json"),
-          JSON.stringify(parsedData),
-          "utf-8",
-          writeErr => {
-            if (writeErr) {
-              return reply("Write Error").code(HTTP_ISE);
-            } else {
-              return reply(payload).code(HTTP_CREATED);
-            }
-          }
-        );
+      const postData = querystring.stringify({
+        customer_id: request.payload.customer_id,
+        vin_number: request.payload.vin_number,
+        actual_price: request.payload.actual_price,
+        status: request.payload.status,
+        comments: request.payload.comments
       });
-    }
-  });
+      let options = {
+        host: "localhost",
+        path: "/create-transaction",
+        port: "8000",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Length": Buffer.byteLength(postData)
+        }
+      };
 
-  server.route({
-    method: "PUT",
-    path: "/update-transaction",
-    handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (readErr, data) => {
-        if (readErr) {
-          console.log("Transactions READ ERROR");
-          return reply("Transactions UPDATE ERROR");
-        }
-        const parsedData = JSON.parse(data);
-        const found = _.find(parsedData, { id: request.payload.id });
-        if (!_.isEmpty(found)) {
-          fs.writeFile(
-            path.join(process.cwd(), "data/transactions.json"),
-            JSON.stringify(parsedData),
-            "utf-8",
-            writeErr => {
-              if (writeErr) {
-                return reply("Write Error").code(HTTP_ISE);
-              } else {
-                return reply("created").code(HTTP_CREATED);
-              }
-            }
-          );
-        } else {
-          return reply("error").code(HTTP_CREATED);
-        }
+      let req = http.request(options, function(res) {
+        let bodyChunks = [];
+        res
+          .on("data", function(chunk) {
+            bodyChunks.push(chunk);
+          })
+          .on("end", function() {
+            let body = Buffer.concat(bodyChunks);
+
+            const results = JSON.parse(body);
+            return reply(results);
+          });
       });
+
+      req.on("error", function(e) {
+        console.log("ERROR: " + e.message);
+        return reply("ERROR:" + e.message);
+      });
+
+      req.write(postData);
+      req.end();
     }
   });
 
@@ -126,40 +121,43 @@ plugin.register = function(server, options, next) {
     method: "PUT",
     path: "/update-negotiation",
     handler: (request, reply) => {
-      fs.readFile(path.resolve("data", "transactions.json"), "utf8", (readErr, data) => {
-        if (readErr) {
-          console.log("Transactions READ ERROR");
-          return reply("Transactions UPDATE ERROR");
-        }
-        const parsedData = JSON.parse(data);
-        const found = _.find(parsedData, {
-          id: request.payload.id,
-          status: "NEGOTIATION"
-        });
-
-        if (!_.isEmpty(found)) {
-          if (request.payload.comments) {
-            found.comments = request.payload.comments;
-          }
-          if (request.payload.status) {
-            found.status = request.payload.status;
-          }
-          fs.writeFile(
-            path.join(process.cwd(), "data/transactions.json"),
-            JSON.stringify(parsedData),
-            "utf-8",
-            writeErr => {
-              if (writeErr) {
-                return reply("Write Error").code(HTTP_ISE);
-              } else {
-                return reply(found).code(HTTP_CREATED);
-              }
-            }
-          );
-        } else {
-          return reply("error").code(HTTP_CREATED);
-        }
+      //get from id and postData from request
+      const postData = querystring.stringify({
+        id: request.payload.id,
+        comments: request.payload.comments,
+        status: request.payload.status
       });
+
+      let options = {
+        host: "localhost",
+        path: `/transactions`,
+        port: "8000",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Length": Buffer.byteLength(postData)
+        }
+      };
+
+      let req = http.request(options, res => {
+        let bodyChunks = [];
+        res
+          .on("data", function(chunk) {
+            bodyChunks.push(chunk);
+          })
+          .on("end", function() {
+            let body = Buffer.concat(bodyChunks);
+            let results = JSON.parse(body);
+            return reply(results);
+          });
+      });
+
+      req.on("error", function(e) {
+        console.log("ERROR: " + e.message);
+        return reply("ERROR:" + e.message);
+      });
+      req.write(postData);
+      req.end();
     }
   });
 
