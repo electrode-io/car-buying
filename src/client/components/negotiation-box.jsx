@@ -7,9 +7,7 @@ import { FaCheckCircle } from "react-icons/lib/fa";
 
 import "../styles/skeleton.css";
 import "../styles/custom.css";
-import "../styles/user.css";
-import "../styles/modal.css";
-import negotiationStyles from "../styles/negotiation.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 class AcceptedBlock extends React.Component {
   constructor(props) {
@@ -18,8 +16,8 @@ class AcceptedBlock extends React.Component {
 
   render() {
     return (
-      <div className={negotiationStyles.expectation}>
-        <FaCheckCircle className={negotiationStyles.acceptedIcon} />
+      <div className={CarBuyingStyles.expectation}>
+        <FaCheckCircle className={CarBuyingStyles.acceptedIcon} />
         Dealer Accepted
       </div>
     );
@@ -49,9 +47,9 @@ class Negotiation extends React.Component {
 
   render() {
     return (
-      <div className={negotiationStyles.negotiation}>
-        <div className={negotiationStyles["vehicle-info"]}>
-          <div className={negotiationStyles["vehicle-info-text"]}>
+      <div className={CarBuyingStyles.negotiation}>
+        <div className={CarBuyingStyles["vehicle-info"]}>
+          <div className={CarBuyingStyles["vehicle-info-text"]}>
             <VehicleInfoBlock infoData={this.props.data} />
             <UserTransReplyBlock transData={this.props.data} parent={this.props.parent} />
           </div>

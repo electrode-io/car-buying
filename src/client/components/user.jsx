@@ -6,10 +6,9 @@ import { connect } from "react-redux";
 import Car from "./car";
 import Banner from "./banner";
 
-import userStyles from "../styles/user.css";
-import sectionStyles from "../styles/section.css";
 import "../styles/skeleton.css";
 import "../styles/custom.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 /*
  * Demostrates a simple pure functional component
@@ -24,7 +23,7 @@ class UserView extends React.Component {
       <div>
         <Banner className={"user-banner"} title={"User View"} />
         <button
-          className={`${userStyles.history}`}
+          className={`${CarBuyingStyles.history}`}
           onClick={() => {
             browserHistory.push("/history");
           }}
@@ -32,13 +31,13 @@ class UserView extends React.Component {
           History
         </button>
         <div
-          className={`${userStyles.userView} ${sectionStyles[
+          className={`${CarBuyingStyles.userView} ${CarBuyingStyles[
             "flex-container"
           ]}`}
         >
           {/* Cars List Section */}
           <div
-            className={`${sectionStyles["cars-list"]} ${sectionStyles[
+            className={`${CarBuyingStyles["cars-list"]} ${CarBuyingStyles[
               "flex-item"
             ]}`}
           >

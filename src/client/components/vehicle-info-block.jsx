@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import negotiationStyles from "../styles/negotiation.css";
+
+import CarBuyingStyles from "../styles/car-buying.css";
 
 class VehicleInfoBlock extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class VehicleInfoBlock extends React.Component {
               }
 
               return (
-                <span className={negotiationStyles["vehicle-info-text-comments"]} key={key}>
+                <span className={CarBuyingStyles["vehicle-info-text-comments"]} key={key}>
                   {item}
                   <br />
                 </span>
@@ -34,7 +35,7 @@ class VehicleInfoBlock extends React.Component {
     };
 
     return (
-      <div className={negotiationStyles["vehicle-info-text-content"]}>
+      <div className={CarBuyingStyles["vehicle-info-text-content"]}>
         <b>VIN</b>: {this.props.infoData.vin_number}
         <br />
         <b>Price</b>: {this.props.infoData.actual_price}

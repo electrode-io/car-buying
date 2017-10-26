@@ -5,6 +5,7 @@ import "../styles/normalize.css";
 import "../styles/raleway.css";
 import skeleton from "../styles/skeleton.css";
 import custom from "../styles/custom.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 export default () => (
   <div className={custom.container}>
@@ -14,7 +15,7 @@ export default () => (
 
       <div>
         <button
-          className={`${custom.user} ${custom.roleButton}`}
+          className={`${CarBuyingStyles.user} ${CarBuyingStyles.roleButton}`}
           onClick={() => {
             browserHistory.push("/user");
           }}
@@ -22,7 +23,7 @@ export default () => (
           Buyer
         </button>
         <button
-          className={`${custom.dealer} ${custom.roleButton}`}
+          className={`${CarBuyingStyles.dealer} ${CarBuyingStyles.roleButton}`}
           onClick={() => {
             browserHistory.push("/dealer");
           }}

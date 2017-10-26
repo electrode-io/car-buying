@@ -16,6 +16,7 @@ We are here to Build your own Car-Buying Experience Application
    ```bash
    $ ignite check-nodejs
    ```
+
    ![alt text][check-nodejs]
 
    If you didn't have your node ready, please install nodeJS using [nvm](https://github.com/creationix/nvm)
@@ -34,7 +35,8 @@ We are here to Build your own Car-Buying Experience Application
     $ ignite generate-app
     ```
 
-    And follow the prompts.
+    And you can see:
+    ![alt text][generator-prompts]
 
  - Try running the app:
 
@@ -55,23 +57,29 @@ We are here to Build your own Car-Buying Experience Application
    From here, you can develop further based on the generated the electrode app.
    Let's start building our own car-buying app.
 
+   ### Get ready with
+
+   In this app, we need to use `react-modal` and `react-icons` modules for this app, please install these two modules beforehand:
+
+   ```
+   $ npm install --save react-modal react-icons
+   ```
+
+   Also, in order to convenient all the developers, we've combined css into one single file. You can import css file at directory `src/client/styles`, create a new file called `car-buying.css` and copy the following content inside: [car-buying.css](./src/client/styles/car-buying.css)
+
    ### Build the home page
 
-   Now, you can clean up your `src/client/component` folder and create a new file: `src/client/components/home.jsx`.
-   Replace the contents of that file with: [Home.jsx](./src/client/components/home.jsx).
+   Now, let's start build our home page. Looking for the file: `src/client/components/home.jsx`, replace the contents of that file with: [Home.jsx](./src/client/components/home.jsx).
 
-   Now, switch to your localhost, and you shall see:
+   Now, switch to your localhost, and you can see:
    ![alt text][home1]
 
    ### Build the user view
 
-   Home.jsx is the main page of the app. It offers the user to pick either buyer or dealer role.
+   Home.jsx is the main page of your app. It offers the user to pick either buyer or dealer role.
    We now need to create components for the car buyer and dealer role.
 
    Create a file named "user.jsx" under directory `src/client/components`, copy the following content inside: [user.jsx](./src/client/components/user.jsx)
-
-   Add it's corresponding css file at directory `src/client/styles`, copy the following content inside: [user.css](./src/client/styles/user.css)
-
 
    `User` Component is composed by `User Banner` and `Car Inventory` components as below:
 
@@ -89,23 +97,12 @@ We are here to Build your own Car-Buying Experience Application
 
   Create a file named "banner.jsx" under directory `src/client/components`, copy the following content inside: [banner.jsx](./src/client/components/banner.jsx)
 
-  Add corresponding css files for it at directory `src/client/styles`, copy the following content inside: [banner.css](./src/client/styles/banner.css)
-
   ### Build the car inventory
 
   Car Inventory is a collection of `Car` Component. It used to display information about a car. This will be used both by the user and the dealer component. Create a file named "car.jsx" under directory `src/client/components`, copy the following content inside: [car.jsx](./src/client/components/car.jsx)
 
 
-  Add corresponding css files for it at directory `src/client/styles`, copy the following content inside: [car.css](./src/client/styles/car.css)
-
-
   Add a few images for the cars from [this directory](./src/client/images).
-
-  And add & update these css for common css styles:
-  [custom.css](./src/client/styles/custom.css)
-  [normalize.css](./src/client/styles/normalize.css)
-  [section.css](./src/client/styles/section.css)
-  [skeleton.css](./src/client/styles/skeleton.css)
 
   - We can now add routes to connect the buttons on the homepage to the appropriate views. Modify the `routes.jsx` file under `src/client` with the following code.
 
@@ -123,9 +120,7 @@ We are here to Build your own Car-Buying Experience Application
     );
     ```
 
-    Since `Car` component is used by both user and dealer component, to preview the app, you can add [dealer.css](./src/client/styles/dealer.css) to the app in advance.
-
-    Now, the initial user view should be ready for you. Once you run `clap dev` in your terminal and open http://localhost:3000, you can see:
+    Now, the initial user view should be ready for you. Open http://localhost:3000/user, you can see:
 
     ![alt text][user1]
 
@@ -146,7 +141,7 @@ We are here to Build your own Car-Buying Experience Application
 
   ### Add car-details component to display the details of a vehicle and contact the dealer using a form
 
-    Add component file, [car-details.jsx](./src/client/components/car-details.jsx) and its corresponding [css](./src/styles/car-details.css).
+    Add component file, [car-details.jsx](./src/client/components/car-details.jsx) under `src/component` directory.
     Also update `client/routes.jsx` with the new Route:
 
     ```
@@ -158,9 +153,7 @@ We are here to Build your own Car-Buying Experience Application
     </Router>
     ```
 
-    Inside `car-details` component, we are using `Modalbox` for prompting messages feedback dialog.
-    Add `"react-modal": "^3.0.4"` to your `package.json` dependencies and install npm module.
-    And add [modal-box.jsx](./src/client/components/modal-box.jsx) and its corresponding [css](./src/styles/modal.css) here.
+    And add [modal-box.jsx](./src/client/components/modal-box.jsx) here.
 
 
  ### Add data and populate the initial state for the pages
@@ -255,9 +248,11 @@ We are here to Build your own Car-Buying Experience Application
   ```
 
   And now, your user view is complete!
+
   Go back to your http://localhost:3000/user and refresh the page, you should see:
 
   ![alt text][user2]
+
 
   Also, if you switch to your http://localhost:3000/car-details and refresh the page, you should see:
 
@@ -315,6 +310,7 @@ We are here to Build your own Car-Buying Experience Application
  -  Your app is now complete and you should be able to update and create transactions and negotiations.
 
  [initial-app]: instructions_img/initial-app.png
+ [generator-prompts]: instructions_img/generator-prompts.png
  [check-nodejs]: instructions_img/check-nodejs.png
  [home1]: instructions_img/home1.png
  [user-banner]: instructions_img/user-banner.png

@@ -8,8 +8,7 @@ import Filter from "./filter";
 
 import "../styles/skeleton.css";
 import "../styles/custom.css";
-import sectionStyles from "../styles/section.css";
-import dealerStyles from "../styles/dealer.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 class DealerTransactions extends React.Component {
   constructor(props) {
@@ -20,13 +19,13 @@ class DealerTransactions extends React.Component {
     return (
       <div>
         <Banner className={"dealer-banner"} title={"Dealer Negotiations"} />
-        <div className={`${dealerStyles.dealerView} ${sectionStyles["flex-container"]}`}>
+        <div className={`${CarBuyingStyles.dealerView} ${CarBuyingStyles["flex-container"]}`}>
           {/* Transactions List Section */}
-          <div className={`${sectionStyles["cars-list"]} ${sectionStyles["flex-item"]}`}>
+          <div className={`${CarBuyingStyles["cars-list"]} ${CarBuyingStyles["flex-item"]}`}>
             {this.props.transactions.map(v => <Negotiation key={v.id} data={v} parent="Dealer" />)}
           </div>
-          <div className={`${dealerStyles.tabs} ${sectionStyles["flex-item"]}`}>
-            <p className={dealerStyles.filter}>
+          <div className={`${CarBuyingStyles.tabs} ${CarBuyingStyles["flex-item"]}`}>
+            <p className={CarBuyingStyles.filter}>
               Show: <Filter filter="SHOW_ALL">All</Filter>
               {", "}
               <Filter filter="NEGOTIATION">Negotiations</Filter>

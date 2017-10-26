@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import modalStyles from "../styles/modal.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 class Modal extends React.Component {
   render() {
@@ -10,10 +10,10 @@ class Modal extends React.Component {
     }
 
     return (
-      <div className={modalStyles.backdrop}>
-        <div className={modalStyles.modalbox}>
+      <div className={CarBuyingStyles.backdrop}>
+        <div className={CarBuyingStyles.modalbox}>
           {this.props.children}
-          <button className={modalStyles.footer} onClick={this.props.onClose}>
+          <button className={CarBuyingStyles.footer} onClick={this.props.onClose}>
             Close
           </button>
         </div>

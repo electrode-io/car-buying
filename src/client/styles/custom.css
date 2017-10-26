@@ -9,7 +9,7 @@
   text-align: center;
 }
 .header button {
-  margin: 0 2%; 
+  margin: 0 2%;
 }
 
 .docs-header {
@@ -59,34 +59,4 @@
   .container {
     width: 80%;
   }
-}
-
-img {
-  vertical-align: text-bottom;
-}
-
-.roleButton,
-.roleButton:hover {
-  color: white;
-  border: none;
-  width: 200px;
-}
-
-.roleButton.user {
-  background-image: linear-gradient(to right, #dd5e89 0%, #f7bb97 51%, #dd5e89 100%);
-}
-.roleButton.user:hover {
-  background-image: linear-gradient(to right, #f7bb97 0%, #dd5e89 51%, #f7bb97 100%);
-}
-
-.roleButton.dealer {
-  background-image: linear-gradient(to right, #77a1d3 0%, #79cbca 51%, #77a1d3 100%);
-}
-.roleButton.dealer:hover {
-  background-image: linear-gradient(to right, #79cbca 0%, #77a1d3 51%, #79cbca 100%);
-}
-
-.demoAppContainer h2 {
-  margin: 50px 0;
-  text-align: center;
 }

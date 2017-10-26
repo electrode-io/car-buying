@@ -4,9 +4,7 @@ import PropTypes from "prop-types";
 
 import "../styles/skeleton.css";
 import "../styles/custom.css";
-import "../styles/dealer.css";
-import sectionStyles from "../styles/section.css";
-import carStyles from "../styles/car.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 class Car extends React.Component {
   render() {
@@ -14,18 +12,18 @@ class Car extends React.Component {
 
     return (
       <section
-        className={`${carStyles.car} ${sectionStyles["flex-container"]}`}
+        className={`${CarBuyingStyles.car} ${CarBuyingStyles["flex-container"]}`}
       >
         {/* Left Car Image */}
         <img
-          className={`${carStyles["car-img"]}`}
+          className={`${CarBuyingStyles["car-img"]}`}
           src={require(`../images/${this.props.img_name}`)}
         />
 
         {/* Middle Car Details */}
-        <div className={`${carStyles["car-info"]}`}>
-          <div className={`${carStyles["left-align-wrapper"]}`}>
-            <span className={`${carStyles["car-title"]}`}>
+        <div className={`${CarBuyingStyles["car-info"]}`}>
+          <div className={`${CarBuyingStyles["left-align-wrapper"]}`}>
+            <span className={`${CarBuyingStyles["car-title"]}`}>
               Used {this.props.vehicle_year} {this.props.vehicle_make}{" "}
               {this.props.vehicle_model}
             </span>
@@ -42,9 +40,9 @@ class Car extends React.Component {
         </div>
 
         {/* Right Car Price */}
-        <div className={`${carStyles["car-price"]}`}>
-          <div className={`${carStyles["left-align-wrapper"]}`}>
-            <span className={`${carStyles["car-price-sale"]}`}>
+        <div className={`${CarBuyingStyles["car-price"]}`}>
+          <div className={`${CarBuyingStyles["left-align-wrapper"]}`}>
+            <span className={`${CarBuyingStyles["car-price-sale"]}`}>
               Sale Price: ${this.props.actual_price}
             </span>
             <br />

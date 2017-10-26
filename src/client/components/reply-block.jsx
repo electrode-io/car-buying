@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Modal from "./modal-box";
-import negotiationStyles from "../styles/negotiation.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 const HTTP_BAD_REQUEST = 400;
 
@@ -118,7 +118,7 @@ class ReplyBlock extends React.Component {
       }
     };
     return (
-      <div className={negotiationStyles.expectation}>
+      <div className={CarBuyingStyles.expectation}>
         <textarea
           value={this.state.replyText}
           onChange={this.handleComments}
@@ -129,14 +129,14 @@ class ReplyBlock extends React.Component {
         <br />
 
         <button
-          className={negotiationStyles.button}
+          className={CarBuyingStyles.button}
           onClick={this.handleSubmit}
           disabled={this.props.data.status !== "NEGOTIATION" || !this.state.replyText}
         >
           Reply
         </button>
         {this.props.parent === "Dealer" ? (
-          <button className={negotiationStyles.button} onClick={this.handleAccept}>
+          <button className={CarBuyingStyles.button} onClick={this.handleAccept}>
             Accept Offer
           </button>
         ) : null}

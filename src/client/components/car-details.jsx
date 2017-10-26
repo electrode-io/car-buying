@@ -5,8 +5,7 @@ import Modal from "./modal-box";
 
 import "../styles/skeleton.css";
 import "../styles/custom.css";
-import carDetails from "../styles/car-details.css";
-import sectionStyles from "../styles/section.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 /* eslint-disable no-magic-numbers */
 class CarDetails extends React.Component {
@@ -94,12 +93,12 @@ class CarDetails extends React.Component {
       ""
     );
     return (
-      <div className={`${carDetails["car-details-info"]}`}>
+      <div className={`${CarBuyingStyles["car-details-info"]}`}>
         <h4>
           {this.props.vehicle_year} {this.props.vehicle_make} {this.props.vehicle_model}
         </h4>
 
-        <div className={carDetails["info-left"]}>
+        <div className={CarBuyingStyles["info-left"]}>
           <b>VIN#</b>: {this.props.vin_number}
           <br />
           <b>Vehicle Type</b>: {this.props.vehicle_type}
@@ -109,7 +108,7 @@ class CarDetails extends React.Component {
           <b>Exterior color</b>: {this.props.vehicle_color}
           <br />
         </div>
-        <div className={carDetails["info-right"]}>${this.props.list_price}</div>
+        <div className={CarBuyingStyles["info-right"]}>${this.props.list_price}</div>
         <hr />
         {imgSection}
       </div>
@@ -118,7 +117,7 @@ class CarDetails extends React.Component {
 
   EmailDealer() {
     return (
-      <div className={`${carDetails["contact-dealer"]}`}>
+      <div className={`${CarBuyingStyles["contact-dealer"]}`}>
         <table>
           <tbody>
             <tr>
@@ -160,7 +159,7 @@ class CarDetails extends React.Component {
   render() {
     this.props = this.props.location.state || {};
     return (
-      <div className={`${carDetails["car-details"]} ${sectionStyles["flex-container"]}`}>
+      <div className={`${CarBuyingStyles["car-details"]} ${CarBuyingStyles["flex-container"]}`}>
         <this.VehicleInfo />
         <this.EmailDealer />
         <Modal show={this.state.isOpen} onClose={this.handleOnClose}>

@@ -9,9 +9,7 @@ import Filter from "./filter";
 
 import "../styles/skeleton.css";
 import "../styles/custom.css";
-import user from "../styles/user.css";
-import sectionStyles from "../styles/section.css";
-import dealerStyles from "../styles/dealer.css";
+import CarBuyingStyles from "../styles/car-buying.css";
 
 class TransactionHistory extends React.Component {
   constructor(props) {
@@ -26,17 +24,17 @@ class TransactionHistory extends React.Component {
           onClick={() => {
             browserHistory.push("/user");
           }}
-          className={`${user.listings}`}
+          className={`${CarBuyingStyles.listings}`}
         >
           Listings
         </button>
-        <div className={`${user.userView} ${sectionStyles["flex-container"]}`}>
+        <div className={`${CarBuyingStyles.userView} ${CarBuyingStyles["flex-container"]}`}>
           {/* Transactions List Section */}
-          <div className={`${sectionStyles["cars-list"]} ${sectionStyles["flex-item"]}`}>
+          <div className={`${CarBuyingStyles["cars-list"]} ${CarBuyingStyles["flex-item"]}`}>
             {this.props.transactions.map(v => <Negotiation key={v.id} data={v} parent="Customer" />)}
           </div>
-          <div className={`${dealerStyles.tabs} ${sectionStyles["flex-item"]}`}>
-            <p className={dealerStyles.filter}>
+          <div className={`${CarBuyingStyles.tabs} ${CarBuyingStyles["flex-item"]}`}>
+            <p className={CarBuyingStyles.filter}>
               Show: <Filter filter="SHOW_ALL">All</Filter>
               {", "}
               <Filter filter="NEGOTIATION">Negotiations</Filter>

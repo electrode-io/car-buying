@@ -1,16 +1,11 @@
 "use strict";
 /*eslint-env es6*/
 const plugin = {};
-const fs = require("fs");
-const path = require("path");
-const HTTP_CREATED = 201;
-const HTTP_ISE = 500;
-const _ = require("lodash");
 const http = require("http");
 const querystring = require("querystring");
 
 /* eslint-disable no-console, consistent-return */
-plugin.register = function(server, options, next) {
+plugin.register = (server, options, next) => {
   server.route({
     method: "GET",
     path: "/transactions",
@@ -21,22 +16,22 @@ plugin.register = function(server, options, next) {
         port: "8000"
       };
 
-      let req = http.get(options, function(res) {
-        let bodyChunks = [];
+      const req = http.get(options, (res) => {
+        const bodyChunks = [];
         res
-          .on("data", function(chunk) {
+          .on("data", (chunk) => {
             bodyChunks.push(chunk);
           })
-          .on("end", function() {
-            let body = Buffer.concat(bodyChunks);
-            let results = JSON.parse(body);
+          .on("end", () => {
+            const body = Buffer.concat(bodyChunks);
+            const results = JSON.parse(body);
             return reply(results);
           });
       });
 
-      req.on("error", function(e) {
-        console.log("ERROR: " + e.message);
-        return reply("ERROR:" + e.message);
+      req.on("error", (e) => {
+        console.log(`ERROR: ${e.message}`);
+        return reply(`ERROR: ${e.message}`);
       });
     }
   });
@@ -51,22 +46,21 @@ plugin.register = function(server, options, next) {
         port: "8000"
       };
 
-      let req = http.get(options, function(res) {
-        let bodyChunks = [];
+      const req = http.get(options, (res) => {
+        const bodyChunks = [];
         res
-          .on("data", function(chunk) {
+          .on("data", (chunk) => {
             bodyChunks.push(chunk);
           })
-          .on("end", function() {
-            let body = Buffer.concat(bodyChunks);
-
+          .on("end", () => {
+            const body = Buffer.concat(bodyChunks);
             const results = JSON.parse(body);
             return reply(results);
           });
       });
-      req.on("error", function(e) {
-        console.log("ERROR: " + e.message);
-        return reply("ERROR:" + e.message);
+      req.on("error", (e) => {
+        console.log(`ERROR: ${e.message}`);
+        return reply(`ERROR: ${e.message}`);
       });
     }
   });
@@ -93,23 +87,22 @@ plugin.register = function(server, options, next) {
         }
       };
 
-      let req = http.request(options, function(res) {
-        let bodyChunks = [];
+      const req = http.request(options, (res) => {
+        const bodyChunks = [];
         res
-          .on("data", function(chunk) {
+          .on("data", (chunk) => {
             bodyChunks.push(chunk);
           })
-          .on("end", function() {
-            let body = Buffer.concat(bodyChunks);
-
+          .on("end", () => {
+            const body = Buffer.concat(bodyChunks);
             const results = JSON.parse(body);
             return reply(results);
           });
       });
 
-      req.on("error", function(e) {
-        console.log("ERROR: " + e.message);
-        return reply("ERROR:" + e.message);
+      req.on("error", (e) => {
+        console.log(`ERROR: ${e.message}`);
+        return reply(`ERROR: ${e.message}`);
       });
 
       req.write(postData);
@@ -139,22 +132,22 @@ plugin.register = function(server, options, next) {
         }
       };
 
-      let req = http.request(options, res => {
-        let bodyChunks = [];
+      const req = http.request(options, res => {
+        const bodyChunks = [];
         res
-          .on("data", function(chunk) {
+          .on("data", (chunk) => {
             bodyChunks.push(chunk);
           })
-          .on("end", function() {
-            let body = Buffer.concat(bodyChunks);
-            let results = JSON.parse(body);
+          .on("end", () => {
+            const body = Buffer.concat(bodyChunks);
+            const results = JSON.parse(body);
             return reply(results);
           });
       });
 
-      req.on("error", function(e) {
-        console.log("ERROR: " + e.message);
-        return reply("ERROR:" + e.message);
+      req.on("error", (e) => {
+        console.log(`ERROR: ${e.message}`);
+        return reply(`ERROR: ${e.message}`);
       });
       req.write(postData);
       req.end();

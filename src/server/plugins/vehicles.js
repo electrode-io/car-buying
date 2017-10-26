@@ -1,14 +1,9 @@
 "use strict";
 
-const fs = require("fs");
-const path = require("path");
-let http = require("http");
-let querystring = require("querystring");
-
+const http = require("http");
 const plugin = {};
 
 /* eslint-disable no-console */
-
 plugin.register = function(server, options, next) {
   server.route({
     method: "GET",
@@ -20,22 +15,22 @@ plugin.register = function(server, options, next) {
         port: "8000"
       };
 
-      let req = http.get(options, function(res) {
-        let bodyChunks = [];
+      const req = http.get(options, (res) => {
+        const bodyChunks = [];
         res
-          .on("data", function(chunk) {
+          .on("data", (chunk) => {
             bodyChunks.push(chunk);
           })
-          .on("end", function() {
-            let body = Buffer.concat(bodyChunks);
-            let results = JSON.parse(body);
+          .on("end", () => {
+            const body = Buffer.concat(bodyChunks);
+            const results = JSON.parse(body);
             return reply(results);
           });
       });
 
-      req.on("error", function(e) {
-        console.log("ERROR: " + e.message);
-        return reply("ERROR:" + e.message);
+      req.on("error", (e) => {
+        console.log(`ERROR: ${e.message}`);
+        return reply(`ERROR: ${e.message}`);
       });
     }
   });
