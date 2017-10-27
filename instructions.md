@@ -69,7 +69,7 @@ We are here to build a Car-Buying Experience Application
   ```
 
   You should now have a server running at `http://localhost:8000`.
-  Test that the server is running by calling it with curl. 
+  Test that the server is running by calling it with curl.
 
   ```bash
   curl http://localhost:8000
@@ -80,7 +80,7 @@ We are here to build a Car-Buying Experience Application
 
   ## Building your car-buying app
 
-   Let's build our car-buying app. 
+   Let's build our car-buying app.
 
    ### Installing prerequisites
 
@@ -237,7 +237,7 @@ We are here to build a Car-Buying Experience Application
 
   ## Going on your own
 
-  Now, we want you to build the dealer view. 
+  Now, we want you to build the dealer view.
   From what we've already learned above on how to fetch the vehicles inventory and displaying it on the car inventory page, we now want to fetch data for transactions page.
 
   Here is what you will build:
@@ -255,7 +255,7 @@ We are here to build a Car-Buying Experience Application
   Wow you are doing a great job! If you still have time, let's move on to some challenges. :-)
 
   If you switch to user view at `http://localhost:3000/car-details`, you will realize the `Details` button is not working yet.
-  
+
   Here is what we want to display:
 
   ![alt text][car-details]
