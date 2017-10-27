@@ -3,7 +3,17 @@ We are here to build a Car-Buying Experience Application
 
   ## Set up
 
- - For development on your local machine, please install the latest [nodejs](https://nodejs.org/en/). (Recommended >=6)
+ - For development on your local machine, please install the latest [node.js](https://nodejs.org/en/). (Recommended >=6)
+
+    If you do not have the current nodejs version, please install nodeJS using [nvm](https://github.com/creationix/nvm)
+
+    If you do not have the current npm version, please upgrade npm using
+
+   ```bash
+   npm install npm -g
+   ```
+
+   > Note: Please `avoid using npm version v5.4.x`, it may cause an incorrect installation.
 
  - Use [electrode-ignite](https://docs.electrode.io/chapter1/quick-start/start-with-ignite.html) to start your development environment with the Electrode platform.
 
@@ -11,23 +21,13 @@ We are here to build a Car-Buying Experience Application
     $ npm install -g electrode-ignite
     ```
 
- - Run the electrode environment checker to ensure your environment is at the appropriate versions.
+ - Run the electrode environment checker to ensure your environment is using compatible versions.
 
    ```bash
    $ ignite check-nodejs
    ```
 
    ![alt text][check-nodejs]
-
-   If you do not have the current nodejs version, please install nodeJS using [nvm](https://github.com/creationix/nvm)
-
-   If you do not have the current npm version, please install npm using
-
-   ```bash
-   npm install npm -g
-   ```
-
-   > Note: Please avoid using npm version v5.4.x, it may cause an incorrect installation.
 
  - Let's get started by generating an Electrode app using Ignite:
 
@@ -37,7 +37,8 @@ We are here to build a Car-Buying Experience Application
     $ ignite generate-app
     ```
 
-    You will be prompted for information about your app.  Enter the information or press <Enter> to use the defaults.
+    You will be prompted for information about your app.  Enter the information or press `<Enter>` to use the defaults.
+
     ![alt text][generator-prompts]
 
  - Try running the app:
@@ -51,64 +52,86 @@ We are here to build a Car-Buying Experience Application
 
     ![alt text][initial-app]
 
-    Congratulations on running your first Electrode application!
+    Congratulations on creating your first Electrode application!
 
+  ## Installing the Mock Server
+
+  The mock server is a simple nodeJS, Hapi server that simulates services needed in the car-buying app. It also serves images that are used by the app.
+  In a seperate folder within your working directory, please clone the server from [here](https://gecgithub01.walmart.com/a0d00hf/car-buying-service).
+
+  After cloning the repo, run the following commands to get the server running.
+  You can run these in a separate terminal.
+
+  ```bash
+  cd car-buying-service
+  npm install
+  npm start
+  ```
+
+  You should now have a server running at `http://localhost:8000`.
+  Test that the server is running by calling it with curl. 
+
+  ```bash
+  curl http://localhost:8000
+  ```
+
+  It should reply with: `Hello! from the car buying service.`
+  The server needs to be running for the duration of the exercise. You can now switch back to your electrode generated app directory.
 
   ## Building your car-buying app
 
-   Let's build our car-buying app.
+   Let's build our car-buying app. 
 
    ### Installing prerequisites
 
-   In this app, we will be using the `react-modal` and `react-icons` modules for modal dialogs and icons.  Please stop the server and install these two modules:
+   In this app, we will be using the `react-modal` and `react-icons` modules for modal dialogs and icons.  Please stop the application server and install these two modules:
 
    ```bash
    $ npm install --save react-modal react-icons
    ```
 
-   Also, for the convenience of the developers, we've combined all the css into one single file. You just need create a new file `./src/client/styles/car-buying.css` and copy the following content inside: [car-buying.css](./src/client/styles/car-buying.css)
+   We have combined all the css styles into a single file. You just need create a new file `src/client/styles/car-buying.css` and copy the following content inside: [car-buying.css](./src/client/styles/car-buying.css)
 
    ### Building the home page
 
    Now, let's start building our car-buying app. Here is the high level description of the structure:
+
    ![alt text][component-structure]
 
 
-   In your project folder, look for the file: `src/client/components/home.jsx`, replace the contents of that file with: [Home.jsx](./src/client/components/home.jsx).  Home.jsx is the main page of your app.  It allows the user to pick either buyer or dealer role.  We will return a React component that contains the Buyer and Dealer buttons.
+   In your project folder, look for the file: `src/client/components/home.jsx`, replace the contents of that file with: [Home.jsx](./src/client/components/home.jsx).  Home.jsx is the main page of your app.  It allows the user to pick from buyer or dealer roles.  We will return a React component that contains the Buyer and Dealer buttons.
 
    Now, restart your server by `clap dev` and switch to your http://localhost:3000/, and you can see:
+
    ![alt text][home1]
 
    Yay! You've got your home page done.
 
-   ### Building the user view
+   ### Building the User View
 
    We now need to create components for the car buyer and dealer role.
 
-   - Let's have a quick peek of whats the components gonna looks like:
+   - Let's have a quick peek of what the components are going to look like:
 
-     `User` Component is composed by `User Banner` and `Car Inventory` components as below:
+     `User` Component is composed of the `User Banner` and a collection of the  `Car` component as shown below:
 
      ![alt text][component-diagram]
 
-   - Here is the structure explanation
 
    Now Let's build!
 
    Create a file named "user.jsx" under directory `src/client/components`, copy the following content inside: [user.jsx](./src/client/components/user.jsx)
 
-  ### Build the user banner
+  ### Build the User Banner
 
   User Banner serves as a header for the user page.
 
-  Create a file named "banner.jsx" under directory `src/client/components`, copy the following content inside: [banner.jsx](./src/client/components/banner.jsx)
+  Create a file named `banner.jsx` under directory `src/client/components`, copy the following content inside: [banner.jsx](./src/client/components/banner.jsx)
 
-  ### Build the car inventory
+  ### Build the Car Inventory
 
-  Car Inventory component is a collection of `Car` Component. It is used to display information about a car. We will use this component in both User and the Dealer components. Create a file named "car.jsx" under directory `src/client/components`, copy the following content inside: [car.jsx](./src/client/components/car.jsx)
+  The car inventory is a collection of the `Car` component, which is used to display information about a car. We will use this component in both User and Dealer components. Create a file named `car.jsx` under the directory `src/client/components`, copy the following content inside: [car.jsx](./src/client/components/car.jsx)
 
-
-  Add a few images for the cars from [this directory](./src/client/images).
 
   - We can now add routes to connect the buttons on the homepage to the appropriate views. Modify the `routes.jsx` file under `src/client` with the following code.
 
@@ -128,35 +151,35 @@ We are here to build a Car-Buying Experience Application
 
     Now, the initial User view should be ready for you.
     Restart the server and wait for your app to recompile.
-    Open http://localhost:3000/user, you can see:
+    Open `http://localhost:3000/user` and you should see:
 
     ![alt text][user1]
 
-    Congratulations for the success of building your initial user view!
+    Congratulations for building your initial user view!
 
  ### Add Plugins
 
-    As you can see above, the user view is suppose to display a list of cars available in the inventory. We will add an api that reads the available inventory from file.
+  As you can see above, the user view is supposed to display a list of cars available in the inventory. We will add an api that gets the available inventory from a service.
 
-    We will store the vehicles inventory in a file called `vehicles.json` which is stored under a [mock server](https://gecgithub01.walmart.com/a0d00hf/car-buying-service).
+  We will store the vehicles inventory in a file called `vehicles.json` which is stored under your [mock server](https://gecgithub01.walmart.com/a0d00hf/car-buying-service) that we initially set up.
 
-    Here is the flow for the data:
+  Here is the flow for the data:
 
-    [!alt text][flow]
+  ![Data Flow][flow]
 
-    Please create a file called `vehicles.js` under `src/server/plugins` with content from [here](./src/server/plugins/vehicles.js). This file exposes an API to get the list of vehicles present in the inventory.
+  Please create a file called `vehicles.js` under `src/server/plugins` with content from [here](./src/server/plugins/vehicles.js). This file exposes an API to get the list of vehicles present in the inventory.
 
-    Register this plugin in `config/default.js` under `plugins` field:
+  Register this plugin in `config/default.js` under `plugins` field:
 
-    ```js
-    "./server/plugins/vehicles": {
-      "module": "./{{env.APP_SRC_DIR}}server/plugins/vehicles"
-    }
-    ```
+  ```js
+  "./server/plugins/vehicles": {
+    "module": "./{{env.APP_SRC_DIR}}server/plugins/vehicles"
+  }
+  ```
 
- ### Add data and populate the initial state for the pages
+ ### Adding data and populating the initial state for the pages
 
-   - In `src/server/views/index-views.jsx`, update with the content here:
+   - Update `src/server/views/index-views.jsx` with the following content:
 
    ```js
     import ReduxRouterEngine from "electrode-redux-router-engine";
@@ -206,7 +229,7 @@ We are here to build a Car-Buying Experience Application
    export default combineReducers({});
    ```
 
-  Re-start the server and go back to your http://localhost:3000/user, you should see:
+  Re-start the server and go to `http://localhost:3000/user`, you should see:
 
   ![alt text][user2]
 
@@ -214,22 +237,26 @@ We are here to build a Car-Buying Experience Application
 
   ## Going on your own
 
-  Now, you are planning to build a dealer view. From what you've already learned above on how to store the vehicles inventory and displaying to car inventory page, let's have some practice on storing transactions data for transactions page.
+  Now, we want you to build the dealer view. 
+  From what we've already learned above on how to fetch the vehicles inventory and displaying it on the car inventory page, we now want to fetch data for transactions page.
 
   Here is what you will build:
+
   ![alt text][transaction-history2]
 
   And here is what you need to do:
 
   - Add a `transactions.js` file under server's plugins, you will have api's to get, create and update transactions.
-  - Add views `src/client/components` that display our transactions loaded from the file.
+  - Add views `src/client/components` that display our transactions loaded from the service.
+  - Make sure the data is populated on the server side, before the view is rendered.
 
   ## Challenge
 
-  - Wow you are doing a great job! If you still have time, let's move on to some challenges. :-)
+  Wow you are doing a great job! If you still have time, let's move on to some challenges. :-)
 
-  If you switch to user view at http://localhost:3000/car-details, you will realize the `Details` button is not working for now.
-  Here is what we planning to have:
+  If you switch to user view at `http://localhost:3000/car-details`, you will realize the `Details` button is not working yet.
+  
+  Here is what we want to display:
 
   ![alt text][car-details]
 
@@ -237,8 +264,8 @@ We are here to build a Car-Buying Experience Application
 
   ## Thank you
 
-  Again, thank you so much for joining this workshop with Electrode today. We are happy to have you here to program together.
-  We create a whole version of the car-buying app [here](https://gecgithub01.walmart.com/a0d00hf/car-buying-service) if you are interested to check it out!
+  Again, thank you so much for joining this workshop with Electrode today. We are happy to have you here to code together.
+  We have created a whole version of the car-buying app [here](https://gecgithub01.walmart.com/a0d00hf/car-buying) if you are interested to check it out!
 
  [initial-app]: instructions_img/initial-app.png
  [generator-prompts]: instructions_img/generator-prompts.png
