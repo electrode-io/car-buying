@@ -62,7 +62,7 @@ We are here to build a Car-Buying Experience Application
 
    In this app, we will be using the `react-modal` and `react-icons` modules for modal dialogs and icons.  Please stop the server and install these two modules:
 
-   ```
+   ```bash
    $ npm install --save react-modal react-icons
    ```
 
@@ -70,7 +70,11 @@ We are here to build a Car-Buying Experience Application
 
    ### Building the home page
 
-   Now, let's build our home page. In your project folder, look for the file: `src/client/components/home.jsx`, replace the contents of that file with: [Home.jsx](./src/client/components/home.jsx).  Home.jsx is the main page of your app.  It allows the user to pick either buyer or dealer role.  We will return a React component that contains the Buyer and Dealer buttons.
+   Now, let's start building our car-buying app. Here is the high level description of the structure:
+   ![alt text][component-structure]
+
+
+   In your project folder, look for the file: `src/client/components/home.jsx`, replace the contents of that file with: [Home.jsx](./src/client/components/home.jsx).  Home.jsx is the main page of your app.  It allows the user to pick either buyer or dealer role.  We will return a React component that contains the Buyer and Dealer buttons.
 
    Now, restart your server by `clap dev` and switch to your http://localhost:3000/, and you can see:
    ![alt text][home1]
@@ -85,15 +89,11 @@ We are here to build a Car-Buying Experience Application
 
      `User` Component is composed by `User Banner` and `Car Inventory` components as below:
 
-     - User Banner:
+     ![alt text][component-diagram]
 
-       ![alt text][user-banner]
+   - Here is the structure explanation
 
-     - Car Inventory:
-
-       ![alt text][car-inventory]
-
-   - Let's build!
+   Now Let's build!
 
    Create a file named "user.jsx" under directory `src/client/components`, copy the following content inside: [user.jsx](./src/client/components/user.jsx)
 
@@ -132,13 +132,19 @@ We are here to build a Car-Buying Experience Application
 
     ![alt text][user1]
 
-  ### Adding Plugins
+    Congratulations for the success of building your initial user view!
 
-    As you can see above, User view is suppose to display a list of cars available in the inventory. We will add an api that reads the available inventory from file.
+ ### Add Plugins
+
+    As you can see above, the user view is suppose to display a list of cars available in the inventory. We will add an api that reads the available inventory from file.
 
     We will store the vehicles inventory in a file called `vehicles.json` which is stored under a [mock server](https://gecgithub01.walmart.com/a0d00hf/car-buying-service).
 
-    Create a file called `vehicles.js` under `src/server/plugins` with content from [here](./src/server/plugins/vehicles.js). This file exposes an API to get the list of vehicles present in the inventory.
+    Here is the flow for the data:
+
+    [!alt text][flow]
+
+    Please create a file called `vehicles.js` under `src/server/plugins` with content from [here](./src/server/plugins/vehicles.js). This file exposes an API to get the list of vehicles present in the inventory.
 
     Register this plugin in `config/default.js` under `plugins` field:
 
@@ -152,7 +158,7 @@ We are here to build a Car-Buying Experience Application
 
    - In `src/server/views/index-views.jsx`, update with the content here:
 
-   ```
+   ```js
     import ReduxRouterEngine from "electrode-redux-router-engine";
     import { routes } from "../../client/routes";
     import { createStore } from "redux";
@@ -195,7 +201,7 @@ We are here to build a Car-Buying Experience Application
 
    Since we do not have any actions for now, please delete the contents from the file `src/client/actions/index.js` and update the file `src/client/reducers.jsx` with:
 
-   ```
+   ```js
    import {combineReducers} from "redux";
    export default combineReducers({});
    ```
@@ -222,7 +228,7 @@ We are here to build a Car-Buying Experience Application
 
   - Wow you are doing a great job! If you still have time, let's move on to some challenges. :-)
 
-  If you switch to user view at http://localhost:3000/user, you will realize the `Details` button is not working for now.
+  If you switch to user view at http://localhost:3000/car-details, you will realize the `Details` button is not working for now.
   Here is what we planning to have:
 
   ![alt text][car-details]
@@ -245,3 +251,6 @@ We are here to build a Car-Buying Experience Application
  [car-details]: instructions_img/car-details.png
  [transaction-history]: instructions_img/transaction-history1.png
  [transaction-history2]: instructions_img/transaction-history2.png
+ [component-diagram]: instructions_img/component-diagram.jpg
+ [component-structure]: instructions_img/component-structure.jpg
+ [flow]: instructions_img/flow.png
