@@ -120,7 +120,7 @@ We are here to build a Car-Buying Experience Application
 
    Now Let's build!
 
-   Create a file named "user.jsx" under directory `src/client/components`, copy the following content inside: [user.jsx](./src/client/components/user.jsx)
+   Create a file named `user.jsx` under directory `src/client/components`, copy the following content inside: [user.jsx](./src/client/components/user.jsx)
 
   ### Build the User Banner
 
@@ -167,7 +167,7 @@ We are here to build a Car-Buying Experience Application
 
   ![Data Flow][flow]
 
-  Please create a file called `vehicles.js` under `src/server/plugins` with content from [here](./src/server/plugins/vehicles.js). This file exposes an API to get the list of vehicles present in the inventory.
+  Please create a file called `vehicles.js` under `src/server/plugins` with content from [here](./src/server/plugins/vehicles.js). This file exposes the `/vehicles` endpoint which is used to get the list of vehicles present in the inventory.
 
   Register this plugin in `config/default.js` under `plugins` field:
 
@@ -221,6 +221,8 @@ We are here to build a Car-Buying Experience Application
       return app.routesEngine.render(req);
     };
    ```
+   
+   > Notice how we are populating the initial redux store with `creatReduxStore` and `storeInitalizer` functions. We are setting the initial state with a list of vehicles to populate the user view. We are calling the `/vehicles` api created in the `vehicles.js` plugin created in the previous step.
 
    Since we do not have any actions for now, please delete the contents from the file `src/client/actions/index.js` and update the file `src/client/reducers.jsx` with:
 
@@ -246,7 +248,16 @@ We are here to build a Car-Buying Experience Application
 
   And here is what you need to do:
 
-  - Add a `transactions.js` file under server's plugins, you will have api's to get, create and update transactions.
+  - Add a `transactions.js` file under server's plugins, you will have api's to get, create and update transactions. These API's will call the mockserver endpoints similar to the `vehicles` plugin. API endpoints available in the mockserver are: 
+    
+    | Path | Method | Purpose |
+    | --- | --- | --- |
+    | /transactions | GET | Return all transactions in record. |
+    | /get-negotiations | GET | Return all transactions of type Negotiation. |
+    | /create-transaction | POST | Create a new transaction. |
+    | /update-transaction | POST | Update a transaction. |
+    
+
   - Add views `src/client/components` that display our transactions loaded from the service.
   - Make sure the data is populated on the server side, before the view is rendered.
 
