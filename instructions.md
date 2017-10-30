@@ -13,7 +13,7 @@ We are here to build a Car-Buying Experience Application
    npm install npm -g
    ```
 
-   > Note: Please `avoid using npm version v5.4.x`, it may cause an incorrect installation.
+   > ![Warning](https://placehold.it/15/f03c15/000000?text=+) Note: Please `avoid using npm version v5.4.x`, it may cause an incorrect installation.
 
  - Use [electrode-ignite](https://docs.electrode.io/chapter1/quick-start/start-with-ignite.html) to start your development environment with the Electrode platform.
 
@@ -221,7 +221,7 @@ We are here to build a Car-Buying Experience Application
       return app.routesEngine.render(req);
     };
    ```
-   
+
    > Notice how we are populating the initial redux store with `creatReduxStore` and `storeInitalizer` functions. We are setting the initial state with a list of vehicles to populate the user view. We are calling the `/vehicles` api created in the `vehicles.js` plugin created in the previous step.
 
    Since we do not have any actions for now, please delete the contents from the file `src/client/actions/index.js` and update the file `src/client/reducers.jsx` with:
@@ -248,15 +248,15 @@ We are here to build a Car-Buying Experience Application
 
   And here is what you need to do:
 
-  - Add a `transactions.js` file under server's plugins, you will have api's to get, create and update transactions. These API's will call the mockserver endpoints similar to the `vehicles` plugin. API endpoints available in the mockserver are: 
-    
+  - Add a `transactions.js` file under server's plugins, you will have api's to get, create and update transactions. These API's will call the mockserver endpoints similar to the `vehicles` plugin. API endpoints available in the mockserver are:
+
     | Path | Method | Purpose |
     | --- | --- | --- |
     | /transactions | GET | Return all transactions in record. |
     | /get-negotiations | GET | Return all transactions of type Negotiation. |
     | /create-transaction | POST | Create a new transaction. |
     | /update-transaction | POST | Update a transaction. |
-    
+
 
   - Add views `src/client/components` that display our transactions loaded from the service.
   - Make sure the data is populated on the server side, before the view is rendered.
