@@ -57,7 +57,7 @@ We are here to build a Car-Buying Experience Application
   ## Installing the Mock Server
 
   The mock server is a simple nodeJS, Hapi server that simulates services needed in the car-buying app. It also serves images that are used by the app.
-  In a seperate folder within your working directory, please clone the server from [here](https://gecgithub01.walmart.com/a0d00hf/car-buying-service).
+  In a seperate folder within your working directory, please clone the server from [here](https://github.com/electrode-io/car-buying-service).
 
   After cloning the repo, run the following commands to get the server running.
   You can run these in a separate terminal.
@@ -77,6 +77,8 @@ We are here to build a Car-Buying Experience Application
 
   It should reply with: `Hello! from the car buying service.`
   The server needs to be running for the duration of the exercise. You can now switch back to your electrode generated app directory.
+
+  > Note: For windows, you will need to have curl installed seperately for the above command.
 
   ## Building your car-buying app
 
@@ -161,7 +163,7 @@ We are here to build a Car-Buying Experience Application
 
   As you can see above, the user view is supposed to display a list of cars available in the inventory. We will add an api that gets the available inventory from a service.
 
-  We will store the vehicles inventory in a file called `vehicles.json` which is stored under your [mock server](https://gecgithub01.walmart.com/a0d00hf/car-buying-service) that we initially set up.
+  We will store the vehicles inventory in a file called `vehicles.json` which is stored under your [mock server](https://github.com/electrode-io/car-buying-service) that we initially set up.
 
   Here is the flow for the data:
 
@@ -262,8 +264,8 @@ We are here to build a Car-Buying Experience Application
     | /update-transaction | POST | Update a transaction. |
 
 
-  - Add views `src/client/components` that display our transactions loaded from the service.
-  - Make sure the data is populated on the server side, before the view is rendered.
+  - Add views under `src/client/components` that display our transactions loaded from the service.
+  - Make sure the data is populated on the server side, before the view is rendered, similar to how vehicles was populated in the `storeInitalizer` function.
 
   ## Challenge
 
@@ -277,10 +279,12 @@ We are here to build a Car-Buying Experience Application
 
   Let's add a route for car details and build the view above!
 
+  When you run `npm test` a coverage report is generated for you. You can view it under the `coverage` folder. A detailed coverage report will be included as an `index.html` file under `coverage/client/<HeadlessChrome>/lcov-report/`. Please go ahead and add tests for components that lack coverage.
+
   ## Thank you
 
   Again, thank you so much for joining this workshop with Electrode today. We are happy to have you here to code together.
-  We have created a whole version of the car-buying app [here](https://gecgithub01.walmart.com/a0d00hf/car-buying) if you are interested to check it out!
+  We have created a complete version of the car-buying app [here](https://github.com/electrode-io/car-buying) if you are interested to check it out!
 
  [initial-app]: instructions_img/initial-app.png
  [generator-prompts]: instructions_img/generator-prompts.png
