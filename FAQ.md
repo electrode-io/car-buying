@@ -1,8 +1,8 @@
 # FAQ for car-buying app development
 
-## Why I cannot start the server by `clap dev` for the app?
+## Why does the app server not start on running `clap dev` ?
 
-If you seen the issues similar to
+If you seen issues similar to
 
 ```
 m-C02SL0GSG8WM:~ s0d00px$ clap dev
@@ -24,9 +24,9 @@ The above error is caused by `npm/lifecycle` module with npm@5.4.x which leads t
 Please verify your npm version. If you are under npm@5.4.x, please either downgrade to npm@5.3.x or a more stable version npm@5.5.x.
 
 
-## What tools can we use when developing this car-buying app?
+## What debugging tools can we use when developing the car-buying app?
 
-You can use Electrode [webpack-reporter](https://github.com/electrode-io/electrode/tree/master/packages/electrode-webpack-reporter). Electrode Webpack Reporter is a HTML based reporter for webpack-dev-server. While you are developing, you may see some error messages in your terminal saying:
+You can use Electrode [webpack-reporter](https://github.com/electrode-io/electrode/tree/master/packages/electrode-webpack-reporter). Electrode Webpack Reporter is an HTML based reporter for webpack-dev-server. While you are developing, you may see some error messages in your terminal saying:
 
 ```
 webpack bundle is now VALID but has ERRORS
@@ -36,4 +36,4 @@ webpack report is served from http://localhost:2992/reporter
  > isomorphic-loader extend require: file watcher config is now invalid
 ```
 
-You can switch to your browser, and open a new tab `http://localhost:2992/reporter`. You shall see the detailed information of the issue under the `Error` section. Electrode webpack reporter can also tracking the sizes of the assets, modules by packages and legacy for your app. For more detailed information, please check [here](https://github.com/electrode-io/electrode/tree/master/packages/electrode-webpack-reporter).
+You can switch to your browser, and open a new tab `http://localhost:2992/reporter`. You shall see the detailed information of the issue under the `Error` section. Electrode webpack reporter can also track the sizes of the assets and bundles. It also has a legacy view similar to your terminal. For more detailed information, please check [here](https://github.com/electrode-io/electrode/tree/master/packages/electrode-webpack-reporter).

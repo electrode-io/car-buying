@@ -235,6 +235,10 @@ We are here to build a Car-Buying Experience Application
 
   ![alt text][user2]
 
+  ### Testing
+  Electrode is already setup to run tests along with `eslint` checks. We have already added a basic test for `Home.jsx`. Running the command `npm test` will run the tests for you. 
+  We want you to add a test for the `User.jsx` component that you just created. Add a new file `user.spec.jsx` under `test/client/components`. You can start by adding a basic test similar to the `home.spec.jsx` and refer [here](./test/client/components/user.spec.jsx) for help.
+  
   Congratulations! You've finished the main focus of today's workshop. Now its time to try some coding your own :-)
 
   ## Going on your own
