@@ -57,7 +57,7 @@ We are here to build a Car-Buying Experience Application
   ## Installing the Mock Server
 
   The mock server is a simple nodeJS, Hapi server that simulates services needed in the car-buying app. It also serves images that are used by the app.
-  In a seperate folder within your working directory, please clone the server from [here](https://github.com/electrode-io/car-buying-service).
+  In a separate folder within your working directory, please clone the server from [here](https://github.com/electrode-io/car-buying-service).
 
   After cloning the repo, run the following commands to get the server running.
   You can run these in a separate terminal.
@@ -144,10 +144,10 @@ We are here to build a Car-Buying Experience Application
     import User from "./components/user";
 
     export const routes = (
-     <Router>
-       <Route path="/" component={Home} />
-       <Route path="/user" component={User} />
-     </Router>
+      <Router>
+        <Route path="/" component={Home} />
+        <Route path="/user" component={User} />
+      </Router>
     );
     ```
 
@@ -224,9 +224,11 @@ We are here to build a Car-Buying Experience Application
     };
    ```
 
-   > Notice how we are populating the initial redux store with `creatReduxStore` and `storeInitalizer` functions. We are setting the initial state with a list of vehicles to populate the user view. We are calling the `/vehicles` api created in the `vehicles.js` plugin created in the previous step. This is the data being populated on the server side. Check out how this data is consumed on the client side in `src/client/app.jsx`.
+   > Notice how we are populating the initial redux store with `createReduxStore` and `storeInitializer` functions. We are setting the initial state with a list of vehicles to populate the user view. We are calling the `/vehicles` api created in the `vehicles.js` plugin created in the previous step. This is the data being populated on the server side. Check out how this data is consumed on the client side in `src/client/app.jsx`.
 
-   Since we do not have any actions for now, please delete the contents from the file `src/client/actions/index.js` and update the file `src/client/reducers.jsx` with:
+   Since we do not have any actions for now, please delete the contents from the file `src/client/actions/index.js`.
+
+   Then, update the file `src/client/reducers.jsx` with:
 
    ```js
    import {combineReducers} from "redux";
@@ -239,9 +241,11 @@ We are here to build a Car-Buying Experience Application
 
   ### Testing
   Electrode is already setup to run tests along with `eslint` checks. We have already added a basic test for `Home.jsx`. Running the command `npm test` will run the tests for you.
-  We want you to add a test for the `User.jsx` component that you just created. Add a new file `user.spec.jsx` under `test/client/components`. You can start by adding a basic test similar to the `home.spec.jsx` and refer [here](./test/client/components/user.spec.jsx) for help.
+  We want you to add a test for the `User.jsx` component that you just created. Add a new file `user.spec.jsx` under `test/client/components`. You can start by adding a basic test similar to `home.spec.jsx`. Remember, in our app we set the initial state of the store as an object with the `cars` property with the value of an array of vehicle objects. How can you find the schema of a `vehicle` object?
 
-  Congratulations! You've finished the main focus of today's workshop. Now its time to try some coding your own :-)
+  If you get stuck, you can refer to [this file](./test/client/components/user.spec.jsx) for help.
+
+  Congratulations! You've finished the main focus of today's workshop. Now it's time to try some coding your own 🤓
 
   ## Going on your own
 
@@ -252,9 +256,9 @@ We are here to build a Car-Buying Experience Application
 
   ![alt text][transaction-history2]
 
-  And here is what you need to do:
+  Now is a good time to review the [application structure](#building-the-home-page). And here is what you need to do:
 
-  - Add a `transactions.js` file under server's plugins, you will have api's to get, create and update transactions. These API's will call the mockserver endpoints similar to the `vehicles` plugin. API endpoints available in the mockserver are:
+  - Add a `transactions.js` file under server's plugins, you will have APIs to get, create and update transactions. These APIs will call the mock server endpoints similar to the `vehicles` plugin. API endpoints available in the mock server are:
 
     | Path | Method | Purpose |
     | --- | --- | --- |
@@ -265,7 +269,7 @@ We are here to build a Car-Buying Experience Application
 
 
   - Add views under `src/client/components` that display our transactions loaded from the service.
-  - Make sure the data is populated on the server side, before the view is rendered, similar to how vehicles was populated in the `storeInitalizer` function.
+  - Make sure the data is populated on the server side, before the view is rendered, similar to how vehicles was populated in the `storeInitializer` function.
 
   ## Challenge
 

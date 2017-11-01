@@ -11,7 +11,7 @@ import "../styles/custom.css";
 import CarBuyingStyles from "../styles/car-buying.css";
 
 /*
- * Demostrates a simple pure functional component
+ * Demonstrates a simple pure functional component
  */
 class UserView extends React.Component {
   constructor(props) {
