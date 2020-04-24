@@ -46,7 +46,7 @@
     "electrode-static-paths": "^1.0.0",
     "lodash": "^4.10.1",
     "react-icons": "^2.2.7",
-    "react-modal": "^3.0.4"
+    "react-modal": "^3.11.2"
   },
   "devDependencies": {
     "electrode-archetype-react-app-dev": "^3.0.0"
